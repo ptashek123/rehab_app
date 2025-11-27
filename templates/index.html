@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Подбор реабилитационной программы</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Подбор оптимальной реабилитационной программы</h1>
+        <p class="lead">Выберите симптомы и медицинские состояния пациента.</p>
+
+        <form action="/recommend" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Симптомы</h3>
+                    {% for symptom in symptoms %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="symptoms" value="{{ symptom }}"
+                            id="sym_{{ loop.index }}">
+                        <label class="form-check-label" for="sym_{{ loop.index }}">
+                            {{ symptom }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="col-md-6">
+                    <h3>Медицинские состояния</h3>
+                    {% for condition in conditions %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="conditions" value="{{ condition }}"
+                            id="cond_{{ loop.index }}">
+                        <label class="form-check-label" for="cond_{{ loop.index }}">
+                            {{ condition }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-4">Подобрать программу</button>
+        </form>
+    </div>
+</body>
+
+</html>
