@@ -7,18 +7,26 @@ onto = get_ontology("ontology/rehab_ontology.owl").load()
 
 def recommend_programs(selected_symptoms, selected_conditions):
     """
-    Функция для подбора программ на основе симптомов и состояний
-    Использует логику онтологии
+    Функция для подбора программ на основе симптомов и состояний.
     """
     recommended_programs = []
 
-    symptom_objs = [onto.search_one(iri="*#%s" % s) for s in selected_symptoms if onto.search_one(iri="*#%s" % s)]
-    condition_objs = [onto.search_one(iri="*#%s" % c) for c in selected_conditions if onto.search_one(iri="*#%s" % c)]
+    symptom_objs = []
+    for symptom_name in selected_symptoms:
+        obj = onto.search_one(iri="*%s" % symptom_name)
+        if obj:
+            symptom_objs.append(obj)
+    
+    condition_objs = []
+    for condition_name in selected_conditions:
+        obj = onto.search_one(iri="*%s" % condition_name)
+        if obj:
+            condition_objs.append(obj)
 
     all_programs = list(onto.RehabProgram.instances())
 
     for program in all_programs:
-        # Критерий 1: Программа рекомендована хотя бы для одного из выбранных состояний или симптомов
+        # Критерий 1: Программа рекомендована для выбранных условий
         is_recommended = False
         recommendations = list(program.isRecommendedFor)
         for rec in recommendations:
@@ -26,7 +34,7 @@ def recommend_programs(selected_symptoms, selected_conditions):
                 is_recommended = True
                 break
 
-        # Критерий 2: Программа НЕ должна быть противопоказана ни для одного из выбранных состояний или симптомов
+        # Критерий 2: Нет противопоказаний
         has_contraindication = False
         contraindications = list(program.hasContraindication)
         for contra in contraindications:
