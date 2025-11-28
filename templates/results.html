@@ -8,27 +8,50 @@
 
 <body>
     <div class="container mt-5">
-        <h1>Рекомендованные программы</h1>
+        <h1 class="mb-4">Рекомендованные программы реабилитации</h1>
 
-        <div class="mb-4">
-            <h4>На основе введенных данных:</h4>
-            <p><strong>Симптомы:</strong> {{ selected_symptoms | join(', ') }}</p>
-            <p><strong>Состояния:</strong> {{ selected_conditions | join(', ') }}</p>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h4 class="card-title">На основе введенных данных:</h4>
+                <p class="card-text"><strong>Симптомы:</strong>
+                    {% if selected_symptoms %}
+                    {{ selected_symptoms | join(', ') }}
+                    {% else %}
+                    не выбраны
+                    {% endif %}
+                </p>
+                <p class="card-text"><strong>Медицинские состояния:</strong>
+                    {% if selected_conditions %}
+                    {{ selected_conditions | join(', ') }}
+                    {% else %}
+                    не выбраны
+                    {% endif %}
+                </p>
+            </div>
         </div>
 
         {% if programs %}
+        <h3 class="mb-3">Найдено программ: {{ programs | length }}</h3>
         <div class="row">
             {% for program in programs %}
-            <div class="col-md-6 mb-3">
-                <div class="card">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">{{ program.name }}</h5>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ program.name }}</h5>
                         {% if program.methods %}
-                        <p class="card-text"><strong>Методы:</strong> {{ program.methods | join(', ') }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Методы лечения:</h6>
+                        <ul class="list-group list-group-flush mb-3">
+                            {% for method in program.methods %}
+                            <li class="list-group-item">{{ method }}</li>
+                            {% endfor %}
+                        </ul>
                         {% endif %}
+
                         {% if program.recommended_for %}
-                        <p class="card-text"><small class="text-muted">Рекомендовано для: {{ program.recommended_for |
-                                join(', ') }}</small></p>
+                        <h6 class="card-subtitle mb-2 text-muted">Рекомендовано для:</h6>
+                        <p class="card-text">{{ program.recommended_for | join(', ') }}</p>
                         {% endif %}
                     </div>
                 </div>
@@ -37,11 +60,15 @@
         </div>
         {% else %}
         <div class="alert alert-warning" role="alert">
-            К сожалению, по вашему запросу не найдено подходящих программ.
+            <h4 class="alert-heading">Программы не найдены</h4>
+            <p class="mb-0">К сожалению, по вашему запросу не найдено подходящих реабилитационных программ. Попробуйте
+                изменить критерии поиска.</p>
         </div>
         {% endif %}
 
-        <a href="/" class="btn btn-secondary mt-4">Назад к подбору</a>
+        <div class="mt-4">
+            <a href="/" class="btn btn-secondary">Вернуться к подбору</a>
+        </div>
     </div>
 </body>
 

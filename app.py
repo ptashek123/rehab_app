@@ -5,39 +5,44 @@ app = Flask(__name__)
 
 onto = get_ontology("ontology/rehab_ontology.owx").load()
 
+def get_russian_name(entity):
+    """Получить русское название из rdfs:comment или использовать label"""
+    if hasattr(entity, 'comment') and entity.comment:
+        russian_name = entity.comment.first()
+        if russian_name:
+            return russian_name
+    
+    if hasattr(entity, 'label') and entity.label:
+        english_name = entity.label.first()
+        if english_name:
+            return english_name
+    
+    return entity.name
+
 def get_entity_by_label(label):
     """Найти сущность по метке (rdfs:label)"""
     return onto.search_one(label=label)
 
 def get_all_entities_by_class_label(class_label):
-    """Получить все сущности по метке класса"""
+    """Получить все сущности по метке класса с русскими названиями"""
     entities = []
     try:
         target_class = get_entity_by_label(class_label)
         if target_class:
             for individual in target_class.instances():
-                individual_label = individual.label.first() if individual.label else individual.name
-                if individual_label:
-                    entities.append(individual_label)
+                russian_name = get_russian_name(individual)
+                if russian_name:
+                    entities.append(russian_name)
+            
+            for subclass in target_class.subclasses():
+                russian_name = get_russian_name(subclass)
+                if russian_name and russian_name not in entities:
+                    entities.append(russian_name)
+                    
     except Exception as e:
         print(f"Error getting entities for {class_label}: {e}")
     
     return list(set(entities))
-
-def get_all_classes_by_parent_label(parent_label):
-    """Получить все подклассы по метке родительского класса"""
-    classes = []
-    try:
-        parent_class = get_entity_by_label(parent_label)
-        if parent_class:
-            for subclass in parent_class.subclasses():
-                subclass_label = subclass.label.first() if subclass.label else subclass.name
-                if subclass_label:
-                    classes.append(subclass_label)
-    except Exception as e:
-        print(f"Error getting subclasses for {parent_label}: {e}")
-    
-    return list(set(classes))
 
 def recommend_programs(selected_symptoms, selected_conditions):
     """Подбор программ на основе симптомов и состояний"""
@@ -56,19 +61,22 @@ def recommend_programs(selected_symptoms, selected_conditions):
         includes_prop = get_entity_by_label("includesMethod")
         contraindication_prop = get_entity_by_label("hasContraindication")
 
+        print(f"Properties - Recommended: {recommended_prop}, Includes: {includes_prop}, Contraindication: {contraindication_prop}")
+
         for program in all_programs:
             if not program:
                 continue
             
-            program_label = program.label.first() if program.label else program.name
-            if not program_label:
+            program_name = get_russian_name(program)
+            if not program_name:
                 continue
 
+            print(f"Checking program: {program_name}")
+
             program_info = {
-                'name': program_label,
+                'name': program_name,
                 'methods': [],
-                'recommended_for': [],
-                'contraindications': []
+                'recommended_for': []
             }
 
             if includes_prop:
@@ -78,13 +86,14 @@ def recommend_programs(selected_symptoms, selected_conditions):
                         methods = [methods]
                     for method in methods:
                         if method:
-                            method_label = method.label.first() if method.label else method.name
-                            if method_label:
-                                program_info['methods'].append(method_label)
+                            method_name = get_russian_name(method)
+                            if method_name:
+                                program_info['methods'].append(method_name)
                 except Exception as e:
-                    print(f"Error getting methods for {program_label}: {e}")
+                    print(f"Error getting methods for {program_name}: {e}")
 
             is_recommended = False
+            program_recommendations = []
             if recommended_prop:
                 try:
                     recommendations = getattr(program, recommended_prop.name, [])
@@ -93,13 +102,18 @@ def recommend_programs(selected_symptoms, selected_conditions):
                     
                     for rec in recommendations:
                         if rec:
-                            rec_label = rec.label.first() if rec.label else rec.name
-                            program_info['recommended_for'].append(rec_label)
-                            
-                            if rec_label in selected_symptoms or rec_label in selected_conditions:
-                                is_recommended = True
+                            rec_name = get_russian_name(rec)
+                            if rec_name:
+                                program_recommendations.append(rec_name)
+                                
+                                # Проверяем совпадение с выбранными симптомами/состояниями
+                                if rec_name in selected_symptoms or rec_name in selected_conditions:
+                                    is_recommended = True
+                                    print(f"Program {program_name} recommended for {rec_name}")
+                    
+                    program_info['recommended_for'] = program_recommendations
                 except Exception as e:
-                    print(f"Error getting recommendations for {program_label}: {e}")
+                    print(f"Error getting recommendations for {program_name}: {e}")
 
             has_contraindication = False
             if contraindication_prop:
@@ -110,16 +124,17 @@ def recommend_programs(selected_symptoms, selected_conditions):
                     
                     for contra in contraindications:
                         if contra:
-                            contra_label = contra.label.first() if contra.label else contra.name
-                            program_info['contraindications'].append(contra_label)
-                            
-                            if contra_label in selected_symptoms or contra_label in selected_conditions:
+                            contra_name = get_russian_name(contra)
+                            if contra_name and (contra_name in selected_symptoms or contra_name in selected_conditions):
                                 has_contraindication = True
+                                print(f"Program {program_name} contraindicated for {contra_name}")
+                                break
                 except Exception as e:
-                    print(f"Error getting contraindications for {program_label}: {e}")
+                    print(f"Error getting contraindications for {program_name}: {e}")
 
             if is_recommended and not has_contraindication:
                 recommended_programs.append(program_info)
+                print(f"Added program to recommendations: {program_name}")
 
     except Exception as e:
         print(f"Error in recommend_programs: {e}")
@@ -133,18 +148,18 @@ def index():
         symptoms = get_all_entities_by_class_label("Symptom")
         conditions = get_all_entities_by_class_label("MedicalCondition")
         
-        if not symptoms:
-            symptoms = get_all_classes_by_parent_label("Symptom")
-        if not conditions:
-            conditions = get_all_classes_by_parent_label("MedicalCondition")
-        
         print(f"Loaded {len(symptoms)} symptoms: {symptoms}")
         print(f"Loaded {len(conditions)} conditions: {conditions}")
         
+        if not symptoms:
+            symptoms = ["Боль", "Ограниченная подвижность", "Мышечная слабость"]
+        if not conditions:
+            conditions = ["Инсульт", "Травма позвоночника", "Травма сустава"]
+            
     except Exception as e:
         print(f"Error loading ontology: {e}")
-        symptoms = ["Боль", "ОграниченнаяПодвижность", "МышечнаяСлабость", "НарушениеРечи", "Депрессия"]
-        conditions = ["Инсульт", "ТравмаПозвоночника", "ТравмаСустава", "РассеянныйСклероз"]
+        symptoms = ["Боль", "Ограниченная подвижность", "Мышечная слабость"]
+        conditions = ["Инсульт", "Травма позвоночника", "Травма сустава"]
     
     return render_template('index.html', symptoms=symptoms, conditions=conditions)
 
