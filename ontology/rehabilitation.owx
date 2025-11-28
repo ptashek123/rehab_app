@@ -1,0 +1,1077 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/rehabilitation"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/rehabilitation">
+    <Prefix name="" IRI="http://www.semanticweb.org/ptashko/ontologies/2025/10/untitled-ontology-2/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#Patient"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RehabilitationMethod"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RehabilitationProgram"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Specialist"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#includesMethod"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#suitableFor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#supervisedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#treatedBy"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasAgeGroup"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasCondition"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasDuration"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasEffectivenessScore"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasSessionCount"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasSeverity"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#method_exercise_therapy"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#method_hydrotherapy"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#method_massage"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#method_mechanotherapy_robot"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#method_occupational_therapy"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#method_physiotherapy_electro"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#method_physiotherapy_magnet"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#method_psychological_cbt"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#patient_age_related"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#patient_arthritis"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#patient_cerebral_palsy"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#patient_spinal_injury"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#patient_sports_injury"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#patient_stroke_mild"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#patient_stroke_severe"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#program_gerontological"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#program_neurological_mild"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#program_orthopedic"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#program_pain_management"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#program_pediatric"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#program_postoperative"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#program_sports"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#specialist_ergotherapist"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#specialist_lfk_doctor"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#specialist_massage_therapist"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#specialist_neurologist"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#specialist_orthopedist"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#specialist_psychologist"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#specialist_rehabilitologist"/>
+    </Declaration>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationMethod"/>
+        <NamedIndividual IRI="#method_exercise_therapy"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationMethod"/>
+        <NamedIndividual IRI="#method_hydrotherapy"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationMethod"/>
+        <NamedIndividual IRI="#method_massage"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationMethod"/>
+        <NamedIndividual IRI="#method_mechanotherapy_robot"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationMethod"/>
+        <NamedIndividual IRI="#method_occupational_therapy"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationMethod"/>
+        <NamedIndividual IRI="#method_physiotherapy_electro"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationMethod"/>
+        <NamedIndividual IRI="#method_physiotherapy_magnet"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationMethod"/>
+        <NamedIndividual IRI="#method_psychological_cbt"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Patient"/>
+        <NamedIndividual IRI="#patient_age_related"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Patient"/>
+        <NamedIndividual IRI="#patient_arthritis"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Patient"/>
+        <NamedIndividual IRI="#patient_cerebral_palsy"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Patient"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Patient"/>
+        <NamedIndividual IRI="#patient_spinal_injury"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Patient"/>
+        <NamedIndividual IRI="#patient_sports_injury"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Patient"/>
+        <NamedIndividual IRI="#patient_stroke_mild"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Patient"/>
+        <NamedIndividual IRI="#patient_stroke_severe"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationProgram"/>
+        <NamedIndividual IRI="#program_gerontological"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationProgram"/>
+        <NamedIndividual IRI="#program_neurological_mild"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationProgram"/>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationProgram"/>
+        <NamedIndividual IRI="#program_orthopedic"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationProgram"/>
+        <NamedIndividual IRI="#program_pain_management"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationProgram"/>
+        <NamedIndividual IRI="#program_pediatric"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationProgram"/>
+        <NamedIndividual IRI="#program_postoperative"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#RehabilitationProgram"/>
+        <NamedIndividual IRI="#program_sports"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Specialist"/>
+        <NamedIndividual IRI="#specialist_ergotherapist"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Specialist"/>
+        <NamedIndividual IRI="#specialist_lfk_doctor"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Specialist"/>
+        <NamedIndividual IRI="#specialist_massage_therapist"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Specialist"/>
+        <NamedIndividual IRI="#specialist_neurologist"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Specialist"/>
+        <NamedIndividual IRI="#specialist_orthopedist"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Specialist"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Specialist"/>
+        <NamedIndividual IRI="#specialist_psychologist"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Specialist"/>
+        <NamedIndividual IRI="#specialist_rehabilitologist"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+        <NamedIndividual IRI="#method_exercise_therapy"/>
+        <NamedIndividual IRI="#specialist_lfk_doctor"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+        <NamedIndividual IRI="#method_hydrotherapy"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+        <NamedIndividual IRI="#method_massage"/>
+        <NamedIndividual IRI="#specialist_massage_therapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+        <NamedIndividual IRI="#method_mechanotherapy_robot"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+        <NamedIndividual IRI="#method_mechanotherapy_robot"/>
+        <NamedIndividual IRI="#specialist_rehabilitologist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+        <NamedIndividual IRI="#method_occupational_therapy"/>
+        <NamedIndividual IRI="#specialist_ergotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+        <NamedIndividual IRI="#method_physiotherapy_electro"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+        <NamedIndividual IRI="#method_physiotherapy_magnet"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+        <NamedIndividual IRI="#method_psychological_cbt"/>
+        <NamedIndividual IRI="#specialist_psychologist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_age_related"/>
+        <NamedIndividual IRI="#specialist_lfk_doctor"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_age_related"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_arthritis"/>
+        <NamedIndividual IRI="#specialist_orthopedist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_arthritis"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_cerebral_palsy"/>
+        <NamedIndividual IRI="#specialist_lfk_doctor"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_cerebral_palsy"/>
+        <NamedIndividual IRI="#specialist_neurologist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+        <NamedIndividual IRI="#specialist_massage_therapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_spinal_injury"/>
+        <NamedIndividual IRI="#specialist_orthopedist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_spinal_injury"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_sports_injury"/>
+        <NamedIndividual IRI="#specialist_orthopedist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_sports_injury"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_stroke_mild"/>
+        <NamedIndividual IRI="#specialist_neurologist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_stroke_mild"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_stroke_severe"/>
+        <NamedIndividual IRI="#specialist_ergotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_stroke_severe"/>
+        <NamedIndividual IRI="#specialist_neurologist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#treatedBy"/>
+        <NamedIndividual IRI="#patient_stroke_severe"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_gerontological"/>
+        <NamedIndividual IRI="#method_exercise_therapy"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_gerontological"/>
+        <NamedIndividual IRI="#method_hydrotherapy"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_gerontological"/>
+        <NamedIndividual IRI="#method_massage"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_gerontological"/>
+        <NamedIndividual IRI="#patient_age_related"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_gerontological"/>
+        <NamedIndividual IRI="#patient_arthritis"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_gerontological"/>
+        <NamedIndividual IRI="#specialist_lfk_doctor"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_gerontological"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_neurological_mild"/>
+        <NamedIndividual IRI="#method_exercise_therapy"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_neurological_mild"/>
+        <NamedIndividual IRI="#method_physiotherapy_electro"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_neurological_mild"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_neurological_mild"/>
+        <NamedIndividual IRI="#patient_stroke_mild"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_neurological_mild"/>
+        <NamedIndividual IRI="#specialist_neurologist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_neurological_mild"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+        <NamedIndividual IRI="#method_mechanotherapy_robot"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+        <NamedIndividual IRI="#method_occupational_therapy"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+        <NamedIndividual IRI="#method_physiotherapy_magnet"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+        <NamedIndividual IRI="#patient_spinal_injury"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+        <NamedIndividual IRI="#patient_stroke_severe"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+        <NamedIndividual IRI="#specialist_ergotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+        <NamedIndividual IRI="#specialist_neurologist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_orthopedic"/>
+        <NamedIndividual IRI="#method_exercise_therapy"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_orthopedic"/>
+        <NamedIndividual IRI="#method_massage"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_orthopedic"/>
+        <NamedIndividual IRI="#method_physiotherapy_electro"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_orthopedic"/>
+        <NamedIndividual IRI="#patient_arthritis"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_orthopedic"/>
+        <NamedIndividual IRI="#patient_sports_injury"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_orthopedic"/>
+        <NamedIndividual IRI="#specialist_orthopedist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_orthopedic"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_pain_management"/>
+        <NamedIndividual IRI="#method_massage"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_pain_management"/>
+        <NamedIndividual IRI="#method_physiotherapy_electro"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_pain_management"/>
+        <NamedIndividual IRI="#method_psychological_cbt"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_pain_management"/>
+        <NamedIndividual IRI="#patient_age_related"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_pain_management"/>
+        <NamedIndividual IRI="#patient_arthritis"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_pain_management"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_pain_management"/>
+        <NamedIndividual IRI="#specialist_psychologist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_pediatric"/>
+        <NamedIndividual IRI="#method_hydrotherapy"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_pediatric"/>
+        <NamedIndividual IRI="#method_occupational_therapy"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_pediatric"/>
+        <NamedIndividual IRI="#method_physiotherapy_magnet"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_pediatric"/>
+        <NamedIndividual IRI="#patient_cerebral_palsy"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_pediatric"/>
+        <NamedIndividual IRI="#specialist_lfk_doctor"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_pediatric"/>
+        <NamedIndividual IRI="#specialist_neurologist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_postoperative"/>
+        <NamedIndividual IRI="#method_massage"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_postoperative"/>
+        <NamedIndividual IRI="#method_physiotherapy_magnet"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_postoperative"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_postoperative"/>
+        <NamedIndividual IRI="#specialist_massage_therapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_postoperative"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_sports"/>
+        <NamedIndividual IRI="#method_exercise_therapy"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_sports"/>
+        <NamedIndividual IRI="#method_massage"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#includesMethod"/>
+        <NamedIndividual IRI="#program_sports"/>
+        <NamedIndividual IRI="#method_physiotherapy_electro"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#suitableFor"/>
+        <NamedIndividual IRI="#program_sports"/>
+        <NamedIndividual IRI="#patient_sports_injury"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_sports"/>
+        <NamedIndividual IRI="#specialist_orthopedist"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <NamedIndividual IRI="#program_sports"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasEffectivenessScore"/>
+        <NamedIndividual IRI="#method_exercise_therapy"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">90</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasEffectivenessScore"/>
+        <NamedIndividual IRI="#method_hydrotherapy"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">88</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasEffectivenessScore"/>
+        <NamedIndividual IRI="#method_massage"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">70</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasEffectivenessScore"/>
+        <NamedIndividual IRI="#method_mechanotherapy_robot"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">82</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasEffectivenessScore"/>
+        <NamedIndividual IRI="#method_occupational_therapy"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">80</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasEffectivenessScore"/>
+        <NamedIndividual IRI="#method_physiotherapy_electro"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">85</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasEffectivenessScore"/>
+        <NamedIndividual IRI="#method_physiotherapy_magnet"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">78</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasEffectivenessScore"/>
+        <NamedIndividual IRI="#method_psychological_cbt"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">75</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasAgeGroup"/>
+        <NamedIndividual IRI="#patient_age_related"/>
+        <Literal>Пожилой</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasCondition"/>
+        <NamedIndividual IRI="#patient_age_related"/>
+        <Literal>Возрастные изменения</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSeverity"/>
+        <NamedIndividual IRI="#patient_age_related"/>
+        <Literal>Легкая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasAgeGroup"/>
+        <NamedIndividual IRI="#patient_arthritis"/>
+        <Literal>Пожилой</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasCondition"/>
+        <NamedIndividual IRI="#patient_arthritis"/>
+        <Literal>Артрит</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSeverity"/>
+        <NamedIndividual IRI="#patient_arthritis"/>
+        <Literal>Средняя</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasAgeGroup"/>
+        <NamedIndividual IRI="#patient_cerebral_palsy"/>
+        <Literal>Детский</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasCondition"/>
+        <NamedIndividual IRI="#patient_cerebral_palsy"/>
+        <Literal>ДЦП</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSeverity"/>
+        <NamedIndividual IRI="#patient_cerebral_palsy"/>
+        <Literal>Средняя</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasAgeGroup"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+        <Literal>Взрослый</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasCondition"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+        <Literal>После операции</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSeverity"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+        <Literal>Легкая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasAgeGroup"/>
+        <NamedIndividual IRI="#patient_spinal_injury"/>
+        <Literal>Молодой</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasCondition"/>
+        <NamedIndividual IRI="#patient_spinal_injury"/>
+        <Literal>Травма позвоночника</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSeverity"/>
+        <NamedIndividual IRI="#patient_spinal_injury"/>
+        <Literal>Тяжелая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasAgeGroup"/>
+        <NamedIndividual IRI="#patient_sports_injury"/>
+        <Literal>Молодой</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasCondition"/>
+        <NamedIndividual IRI="#patient_sports_injury"/>
+        <Literal>Спортивная травма</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSeverity"/>
+        <NamedIndividual IRI="#patient_sports_injury"/>
+        <Literal>Средняя</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasAgeGroup"/>
+        <NamedIndividual IRI="#patient_stroke_mild"/>
+        <Literal>Взрослая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasCondition"/>
+        <NamedIndividual IRI="#patient_stroke_mild"/>
+        <Literal>Инсульт</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSeverity"/>
+        <NamedIndividual IRI="#patient_stroke_mild"/>
+        <Literal>Легкая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasAgeGroup"/>
+        <NamedIndividual IRI="#patient_stroke_severe"/>
+        <Literal>Пожилой</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasCondition"/>
+        <NamedIndividual IRI="#patient_stroke_severe"/>
+        <Literal>Инсульт</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSeverity"/>
+        <NamedIndividual IRI="#patient_stroke_severe"/>
+        <Literal>Тяжелая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDuration"/>
+        <NamedIndividual IRI="#program_gerontological"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">40</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSessionCount"/>
+        <NamedIndividual IRI="#program_gerontological"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">18</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDuration"/>
+        <NamedIndividual IRI="#program_neurological_mild"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">30</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSessionCount"/>
+        <NamedIndividual IRI="#program_neurological_mild"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">15</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDuration"/>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">60</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSessionCount"/>
+        <NamedIndividual IRI="#program_neurological_severe"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">30</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDuration"/>
+        <NamedIndividual IRI="#program_orthopedic"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">45</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSessionCount"/>
+        <NamedIndividual IRI="#program_orthopedic"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">20</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDuration"/>
+        <NamedIndividual IRI="#program_pain_management"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">35</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSessionCount"/>
+        <NamedIndividual IRI="#program_pain_management"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDuration"/>
+        <NamedIndividual IRI="#program_pediatric"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">90</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSessionCount"/>
+        <NamedIndividual IRI="#program_pediatric"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">40</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDuration"/>
+        <NamedIndividual IRI="#program_postoperative"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">25</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSessionCount"/>
+        <NamedIndividual IRI="#program_postoperative"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">10</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasDuration"/>
+        <NamedIndividual IRI="#program_sports"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">30</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSessionCount"/>
+        <NamedIndividual IRI="#program_sports"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">12</Literal>
+    </DataPropertyAssertion>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#includesMethod"/>
+        <Class IRI="#RehabilitationProgram"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+        <Class IRI="#RehabilitationMethod"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#suitableFor"/>
+        <Class IRI="#RehabilitationProgram"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <Class IRI="#RehabilitationProgram"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#treatedBy"/>
+        <Class IRI="#Patient"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#includesMethod"/>
+        <Class IRI="#Specialist"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#requiresSpecialist"/>
+        <Class IRI="#Specialist"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#suitableFor"/>
+        <Class IRI="#Patient"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#supervisedBy"/>
+        <Class IRI="#Specialist"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#treatedBy"/>
+        <Class IRI="#Specialist"/>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasAgeGroup"/>
+        <Class IRI="#Patient"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasCondition"/>
+        <Class IRI="#Patient"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasDuration"/>
+        <Class IRI="#RehabilitationProgram"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasEffectivenessScore"/>
+        <Class IRI="#RehabilitationMethod"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasSessionCount"/>
+        <Class IRI="#RehabilitationProgram"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasSeverity"/>
+        <Class IRI="#Patient"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasAgeGroup"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasCondition"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasDuration"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasEffectivenessScore"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasSessionCount"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasSeverity"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Patient</IRI>
+        <Literal>Пациент</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#RehabilitationMethod</IRI>
+        <Literal>Метод реабилитации</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#RehabilitationProgram</IRI>
+        <Literal>Программа реабилитации</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Specialist</IRI>
+        <Literal>Специалист</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#includesMethod</IRI>
+        <Literal>Включает метод</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#method_hydrotherapy</IRI>
+        <Literal>Гидротерапия</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#program_gerontological</IRI>
+        <Literal>Геронтологическая программа</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#program_neurological_mild</IRI>
+        <Literal>Легкая неврологическая программа</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#program_neurological_severe</IRI>
+        <Literal>Тяжелая неврологическая программа</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#program_orthopedic</IRI>
+        <Literal>Ортопедическая программа</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#program_pain_management</IRI>
+        <Literal>Программа управления болью</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#program_pediatric</IRI>
+        <Literal>Педиатрическая программа</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#program_postoperative</IRI>
+        <Literal>Постоперационная программа</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#program_sports</IRI>
+        <Literal>Спортивная программа</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

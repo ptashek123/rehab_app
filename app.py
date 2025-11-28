@@ -8,11 +8,16 @@ app.secret_key = 'rehab_secret_key_2024'
 
 def load_ontology():
     try:
-        onto_path.append("ontology")
-        onto = get_ontology("rehab_ontology.owl").load()
+        onto = get_ontology("ontology/rehabilitation.owx").load()
+        print("✅ Онтология загружена успешно!")
+        
+        print(f"Классы: {list(onto.classes())}")
+        print(f"Пациенты: {list(onto.Patient.instances())}")
+        
         return onto
+        
     except Exception as e:
-        print(f"Ошибка загрузки онтологии: {e}")
+        print(f"❌ Ошибка загрузки: {e}")
         return None
 
 onto = load_ontology()
@@ -286,4 +291,4 @@ def api_find_program():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5001)
