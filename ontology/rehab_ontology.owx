@@ -1,776 +1,268 @@
 <?xml version="1.0"?>
-<Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="urn:webprotege:ontology:ad06f7b9-d87e-4cfd-88fb-e7be0cf3cd9c"
+<rdf:RDF xmlns="http://www.semanticweb.org/rehabilitation-ontology#"
+     xml:base="http://www.semanticweb.org/rehabilitation-ontology"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="urn:webprotege:ontology:ad06f7b9-d87e-4cfd-88fb-e7be0cf3cd9c">
-    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
-    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
-    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
-    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
-    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/R7KMc3NlvyXRIdxrhcFgW8l"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/R817xQxLmVm9RUXibPT6xkq"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/R8N9gPzKca6iWDnKV8bRqTN"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/R8ouqc3HrNJv3Guz8SXaU4r"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/R8tBMIdbD9AlvdRDxXSeckt"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/R8x2pyFFqmJiv34tNBeQ5fH"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/R9AFO1GNSfl64F0To0NCLnL"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/R9zpQs7p2T7kUih75Qtay76"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/R9zqczx2lcMEtXn0nGjm58y"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RBT8llmjdqGml0GgTbsxehW"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RCnlvJeTq70xH2UtzlCdI3a"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RCxMudp91YfFjs2Cd4lvNnM"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RDRukebKZ0VLxHTVdZZRhLh"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RDwj4pYeYBMhvRlo1g3LXC3"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RINW8FiG2jCCqxo6kjHUu6"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RMoyLQGMTuFeTsT7ln5IKp"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RNnEnUj0Pzq5gPMhmCt8IO"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RSJZ3UP5ckkL2gb01ooLKi"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RT4JGm8q3TABKnXQbLwRjP"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RiK7AMBXXWVlyeGKtkSXu0"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RmoSzNw7vcFOth1yBvZHav"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://webprotege.stanford.edu/RqOitaEzdkJUcEVUWM1z7v"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R75c77wODBgLPcc7esIEqaJ"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R9iR35vXl2Spwl8Dblec1gn"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/RfO8kdiBZIISzopggTPHsN"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R3ENLkdqeQc8M8jlXbLqDM"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R7eEkG5HHb8xqkiEn2fjx6m"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R8fnuyIxJuPf5RQj4LRuKcE"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R9GRtpDeaI0U4fevyELuuhA"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R9aHl8srPEm0wahDKmHfsLI"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RBpE82oYgApQvEhRvRIotpy"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RC3EU8opV4GjuYL1xWkEmBl"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RCqHdbBCSSXqbxriqv7hNMx"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RDU3EBAmUY3YeyPFhVeVfMk"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RDZnLs6OgOwyTr7H9Bs1XC"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RfWrX2AgxbtyvbGOuSIRa0"/>
-    </Declaration>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/R7KMc3NlvyXRIdxrhcFgW8l"/>
-        <Class IRI="http://webprotege.stanford.edu/RCnlvJeTq70xH2UtzlCdI3a"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/R817xQxLmVm9RUXibPT6xkq"/>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/R8N9gPzKca6iWDnKV8bRqTN"/>
-        <Class IRI="http://webprotege.stanford.edu/RINW8FiG2jCCqxo6kjHUu6"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/R8ouqc3HrNJv3Guz8SXaU4r"/>
-        <Class IRI="http://webprotege.stanford.edu/RSJZ3UP5ckkL2gb01ooLKi"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/R8tBMIdbD9AlvdRDxXSeckt"/>
-        <Class IRI="http://webprotege.stanford.edu/RSJZ3UP5ckkL2gb01ooLKi"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/R8x2pyFFqmJiv34tNBeQ5fH"/>
-        <Class IRI="http://webprotege.stanford.edu/RCnlvJeTq70xH2UtzlCdI3a"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/R9AFO1GNSfl64F0To0NCLnL"/>
-        <Class IRI="http://webprotege.stanford.edu/RCnlvJeTq70xH2UtzlCdI3a"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/R9zpQs7p2T7kUih75Qtay76"/>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/R9zqczx2lcMEtXn0nGjm58y"/>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/RBT8llmjdqGml0GgTbsxehW"/>
-        <Class IRI="http://webprotege.stanford.edu/RCnlvJeTq70xH2UtzlCdI3a"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/RDRukebKZ0VLxHTVdZZRhLh"/>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/RDwj4pYeYBMhvRlo1g3LXC3"/>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/RINW8FiG2jCCqxo6kjHUu6"/>
-        <Class IRI="http://webprotege.stanford.edu/RCxMudp91YfFjs2Cd4lvNnM"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/RMoyLQGMTuFeTsT7ln5IKp"/>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/RSJZ3UP5ckkL2gb01ooLKi"/>
-        <Class IRI="http://webprotege.stanford.edu/RCxMudp91YfFjs2Cd4lvNnM"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/RT4JGm8q3TABKnXQbLwRjP"/>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/RiK7AMBXXWVlyeGKtkSXu0"/>
-        <Class IRI="http://webprotege.stanford.edu/RCnlvJeTq70xH2UtzlCdI3a"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/RmoSzNw7vcFOth1yBvZHav"/>
-        <Class IRI="http://webprotege.stanford.edu/RINW8FiG2jCCqxo6kjHUu6"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="http://webprotege.stanford.edu/RqOitaEzdkJUcEVUWM1z7v"/>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-    </SubClassOf>
-    <ClassAssertion>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R3ENLkdqeQc8M8jlXbLqDM"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R7eEkG5HHb8xqkiEn2fjx6m"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-            <Class IRI="http://webprotege.stanford.edu/R8tBMIdbD9AlvdRDxXSeckt"/>
-        </ObjectSomeValuesFrom>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R7eEkG5HHb8xqkiEn2fjx6m"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-            <Class IRI="http://webprotege.stanford.edu/R8x2pyFFqmJiv34tNBeQ5fH"/>
-        </ObjectSomeValuesFrom>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R7eEkG5HHb8xqkiEn2fjx6m"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-            <Class IRI="http://webprotege.stanford.edu/RBT8llmjdqGml0GgTbsxehW"/>
-        </ObjectSomeValuesFrom>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R7eEkG5HHb8xqkiEn2fjx6m"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R8fnuyIxJuPf5RQj4LRuKcE"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-            <Class IRI="http://webprotege.stanford.edu/R9AFO1GNSfl64F0To0NCLnL"/>
-        </ObjectSomeValuesFrom>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R8fnuyIxJuPf5RQj4LRuKcE"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R9GRtpDeaI0U4fevyELuuhA"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R9aHl8srPEm0wahDKmHfsLI"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RBpE82oYgApQvEhRvRIotpy"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-            <Class IRI="http://webprotege.stanford.edu/RiK7AMBXXWVlyeGKtkSXu0"/>
-        </ObjectSomeValuesFrom>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RBpE82oYgApQvEhRvRIotpy"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RC3EU8opV4GjuYL1xWkEmBl"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RCqHdbBCSSXqbxriqv7hNMx"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RDU3EBAmUY3YeyPFhVeVfMk"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RDZnLs6OgOwyTr7H9Bs1XC"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RfWrX2AgxbtyvbGOuSIRa0"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-            <Class IRI="http://webprotege.stanford.edu/R7KMc3NlvyXRIdxrhcFgW8l"/>
-        </ObjectSomeValuesFrom>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RfWrX2AgxbtyvbGOuSIRa0"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <ObjectSomeValuesFrom>
-            <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-            <Class IRI="http://webprotege.stanford.edu/RmoSzNw7vcFOth1yBvZHav"/>
-        </ObjectSomeValuesFrom>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RfWrX2AgxbtyvbGOuSIRa0"/>
-    </ClassAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R7eEkG5HHb8xqkiEn2fjx6m"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R9aHl8srPEm0wahDKmHfsLI"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R7eEkG5HHb8xqkiEn2fjx6m"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RC3EU8opV4GjuYL1xWkEmBl"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R8fnuyIxJuPf5RQj4LRuKcE"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RDU3EBAmUY3YeyPFhVeVfMk"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R8fnuyIxJuPf5RQj4LRuKcE"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RDZnLs6OgOwyTr7H9Bs1XC"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RBpE82oYgApQvEhRvRIotpy"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RCqHdbBCSSXqbxriqv7hNMx"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RfWrX2AgxbtyvbGOuSIRa0"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R3ENLkdqeQc8M8jlXbLqDM"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/RfWrX2AgxbtyvbGOuSIRa0"/>
-        <NamedIndividual IRI="http://webprotege.stanford.edu/R9GRtpDeaI0U4fevyELuuhA"/>
-    </ObjectPropertyAssertion>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R75c77wODBgLPcc7esIEqaJ"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R9iR35vXl2Spwl8Dblec1gn"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/RfO8kdiBZIISzopggTPHsN"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </SubObjectPropertyOf>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R75c77wODBgLPcc7esIEqaJ"/>
-        <Class IRI="http://webprotege.stanford.edu/RNnEnUj0Pzq5gPMhmCt8IO"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4"/>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R9iR35vXl2Spwl8Dblec1gn"/>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-        <Class IRI="http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/RfO8kdiBZIISzopggTPHsN"/>
-        <Class IRI="http://webprotege.stanford.edu/RNnEnUj0Pzq5gPMhmCt8IO"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R75c77wODBgLPcc7esIEqaJ"/>
-        <Class IRI="http://webprotege.stanford.edu/RCxMudp91YfFjs2Cd4lvNnM"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4"/>
-        <Class IRI="http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R9iR35vXl2Spwl8Dblec1gn"/>
-        <Class IRI="http://webprotege.stanford.edu/RCnlvJeTq70xH2UtzlCdI3a"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/R9iR35vXl2Spwl8Dblec1gn"/>
-        <Class IRI="http://webprotege.stanford.edu/RCxMudp91YfFjs2Cd4lvNnM"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-        <Class IRI="http://webprotege.stanford.edu/RCnlvJeTq70xH2UtzlCdI3a"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP"/>
-        <Class IRI="http://webprotege.stanford.edu/RCxMudp91YfFjs2Cd4lvNnM"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="http://webprotege.stanford.edu/RfO8kdiBZIISzopggTPHsN"/>
-        <Class IRI="http://webprotege.stanford.edu/RCnlvJeTq70xH2UtzlCdI3a"/>
-    </ObjectPropertyRange>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R3ENLkdqeQc8M8jlXbLqDM</IRI>
-        <Literal>StrengthTraining</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R75c77wODBgLPcc7esIEqaJ</IRI>
-        <Literal>Имеет состояние</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R75c77wODBgLPcc7esIEqaJ</IRI>
-        <Literal>hasCondition</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R7KMc3NlvyXRIdxrhcFgW8l</IRI>
-        <Literal>Ограниченная подвижность</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R7KMc3NlvyXRIdxrhcFgW8l</IRI>
-        <Literal>LimitedMobility</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R7eEkG5HHb8xqkiEn2fjx6m</IRI>
-        <Literal>Постинсульнтовая реабилитация</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R7eEkG5HHb8xqkiEn2fjx6m</IRI>
-        <Literal>PostStrokeRehab</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R817xQxLmVm9RUXibPT6xkq</IRI>
-        <Literal>Когнитивные упражнения</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R817xQxLmVm9RUXibPT6xkq</IRI>
-        <Literal>CognitiveExercises</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R8N9gPzKca6iWDnKV8bRqTN</IRI>
-        <Literal>Травма позвоночника</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R8N9gPzKca6iWDnKV8bRqTN</IRI>
-        <Literal>SpinalInjury</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4</IRI>
-        <Literal>Включает метод</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R8Uxam9tAaHVMWh0sjwgbM4</IRI>
-        <Literal>includesMethod</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R8fnuyIxJuPf5RQj4LRuKcE</IRI>
-        <Literal>Управление хронической болью</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R8fnuyIxJuPf5RQj4LRuKcE</IRI>
-        <Literal>ChronicPainManagement</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R8ouqc3HrNJv3Guz8SXaU4r</IRI>
-        <Literal>Рассеянный склероз</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R8ouqc3HrNJv3Guz8SXaU4r</IRI>
-        <Literal>MultipleSclerosis</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R8tBMIdbD9AlvdRDxXSeckt</IRI>
-        <Literal>Инсульт</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R8tBMIdbD9AlvdRDxXSeckt</IRI>
-        <Literal>Stroke</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R8x2pyFFqmJiv34tNBeQ5fH</IRI>
-        <Literal>Мышечная слабость</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R8x2pyFFqmJiv34tNBeQ5fH</IRI>
-        <Literal>MuscleWeakness</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R9AFO1GNSfl64F0To0NCLnL</IRI>
-        <Literal>Боль</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R9AFO1GNSfl64F0To0NCLnL</IRI>
-        <Literal>Pain</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R9GRtpDeaI0U4fevyELuuhA</IRI>
-        <Literal>LightStretching</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R9aHl8srPEm0wahDKmHfsLI</IRI>
-        <Literal>SpeechDrills</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R9iR35vXl2Spwl8Dblec1gn</IRI>
-        <Literal>Имеет противопоказания</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R9iR35vXl2Spwl8Dblec1gn</IRI>
-        <Literal>hasContraindication</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R9zpQs7p2T7kUih75Qtay76</IRI>
-        <Literal>Психологическая терапия</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R9zpQs7p2T7kUih75Qtay76</IRI>
-        <Literal>PsychologicalSupport</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/R9zqczx2lcMEtXn0nGjm58y</IRI>
-        <Literal>Физиотерапия</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/R9zqczx2lcMEtXn0nGjm58y</IRI>
-        <Literal>PhysicalTherapy</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG</IRI>
-        <Literal>Метод терапии</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RB7dRDOd1Fs8j90MWeiGdTG</IRI>
-        <Literal>TherapyMethod</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RBT8llmjdqGml0GgTbsxehW</IRI>
-        <Literal>Нарушение речи</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RBT8llmjdqGml0GgTbsxehW</IRI>
-        <Literal>SpeechDisorder</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RBpE82oYgApQvEhRvRIotpy</IRI>
-        <Literal>Психологическое консультирование</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RBpE82oYgApQvEhRvRIotpy</IRI>
-        <Literal>PsychologicalCounseling</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RC3EU8opV4GjuYL1xWkEmBl</IRI>
-        <Literal>JointMobilization</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RCnlvJeTq70xH2UtzlCdI3a</IRI>
-        <Literal>Симптом</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RCnlvJeTq70xH2UtzlCdI3a</IRI>
-        <Literal>Symptom</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RCqHdbBCSSXqbxriqv7hNMx</IRI>
-        <Literal>TalkTherapy</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RCxMudp91YfFjs2Cd4lvNnM</IRI>
-        <Literal>Медицинское состояние</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RCxMudp91YfFjs2Cd4lvNnM</IRI>
-        <Literal>MedicalCondition</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RDRukebKZ0VLxHTVdZZRhLh</IRI>
-        <Literal>Логопедическая терапия</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RDRukebKZ0VLxHTVdZZRhLh</IRI>
-        <Literal>SpeechTherapy</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RDU3EBAmUY3YeyPFhVeVfMk</IRI>
-        <Literal>Massage</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RDZnLs6OgOwyTr7H9Bs1XC</IRI>
-        <Literal>Electrotherapy</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RDwj4pYeYBMhvRlo1g3LXC3</IRI>
-        <Literal>Упражнения</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RDwj4pYeYBMhvRlo1g3LXC3</IRI>
-        <Literal>Exercise</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RINW8FiG2jCCqxo6kjHUu6</IRI>
-        <Literal>Травма</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RINW8FiG2jCCqxo6kjHUu6</IRI>
-        <Literal>Trauma</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RMoyLQGMTuFeTsT7ln5IKp</IRI>
-        <Literal>Массаж</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RMoyLQGMTuFeTsT7ln5IKp</IRI>
-        <Literal>Massage</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RNnEnUj0Pzq5gPMhmCt8IO</IRI>
-        <Literal>Пациент</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RNnEnUj0Pzq5gPMhmCt8IO</IRI>
-        <Literal>Patient</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RSJZ3UP5ckkL2gb01ooLKi</IRI>
-        <Literal>Неврологическое расстройство</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RSJZ3UP5ckkL2gb01ooLKi</IRI>
-        <Literal>NeurologicalDisorder</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RT4JGm8q3TABKnXQbLwRjP</IRI>
-        <Literal>Электротерапия</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RT4JGm8q3TABKnXQbLwRjP</IRI>
-        <Literal>Electrotherapy</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP</IRI>
-        <Literal>Рекомендована для</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RYaRO1SHayI9uM3CpN3VmP</IRI>
-        <Literal>isRecommendedFor</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk</IRI>
-        <Literal>Реабилитационная программа</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/Rar8790YIjI2hZ7AcYfivk</IRI>
-        <Literal>RehabProgram</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RfO8kdiBZIISzopggTPHsN</IRI>
-        <Literal>Имеет симптом</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RfO8kdiBZIISzopggTPHsN</IRI>
-        <Literal>hasSymptom</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RfWrX2AgxbtyvbGOuSIRa0</IRI>
-        <Literal>Восстановление базовой подвижности</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RfWrX2AgxbtyvbGOuSIRa0</IRI>
-        <Literal>BasicMobilityRecovery</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RiK7AMBXXWVlyeGKtkSXu0</IRI>
-        <Literal>Депрессия</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RiK7AMBXXWVlyeGKtkSXu0</IRI>
-        <Literal>Depression</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RmoSzNw7vcFOth1yBvZHav</IRI>
-        <Literal>Травма сустава</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RmoSzNw7vcFOth1yBvZHav</IRI>
-        <Literal>JointInjury</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://webprotege.stanford.edu/RqOitaEzdkJUcEVUWM1z7v</IRI>
-        <Literal>Эрготерапия</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>http://webprotege.stanford.edu/RqOitaEzdkJUcEVUWM1z7v</IRI>
-        <Literal>OccupationalTherapy</Literal>
-    </AnnotationAssertion>
-</Ontology>
-
-
-
-<!-- Generated by the OWL API (version 4.5.13) https://github.com/owlcs/owlapi -->
-
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/rehabilitation-ontology"/>
+    
+    <owl:Class rdf:about="#Patient"/>
+    <owl:Class rdf:about="#RehabilitationProgram"/>
+    <owl:Class rdf:about="#RehabilitationMethod"/>
+    <owl:Class rdf:about="#Specialist"/>
+    
+    <owl:ObjectProperty rdf:about="#hasCondition"/>
+    <owl:ObjectProperty rdf:about="#hasSeverity"/>
+    <owl:ObjectProperty rdf:about="#hasAgeGroup"/>
+    
+    <owl:ObjectProperty rdf:about="#includesMethod">
+        <rdfs:domain rdf:resource="#RehabilitationProgram"/>
+        <rdfs:range rdf:resource="#RehabilitationMethod"/>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="#supervisedBy">
+        <rdfs:domain rdf:resource="#RehabilitationProgram"/>
+        <rdfs:range rdf:resource="#Specialist"/>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="#suitableFor">
+        <rdfs:domain rdf:resource="#RehabilitationProgram"/>
+        <rdfs:range rdf:resource="#Patient"/>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="#requiresSpecialist">
+        <rdfs:domain rdf:resource="#RehabilitationMethod"/>
+        <rdfs:range rdf:resource="#Specialist"/>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="#treatedBy">
+        <rdfs:domain rdf:resource="#Patient"/>
+        <rdfs:range rdf:resource="#Specialist"/>
+    </owl:ObjectProperty>
+    
+    <owl:DatatypeProperty rdf:about="#hasDuration">
+        <rdfs:domain rdf:resource="#RehabilitationProgram"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+    <owl:DatatypeProperty rdf:about="#hasSessionCount">
+        <rdfs:domain rdf:resource="#RehabilitationProgram"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+    <owl:DatatypeProperty rdf:about="#hasEffectivenessScore">
+        <rdfs:domain rdf:resource="#RehabilitationMethod"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+    <Patient rdf:about="#patient_stroke_mild">
+        <hasCondition rdf:datatype="&xsd;string">Инсульт</hasCondition>
+        <hasSeverity rdf:datatype="&xsd;string">Легкая</hasSeverity>
+        <hasAgeGroup rdf:datatype="&xsd;string">Взрослый</hasAgeGroup>
+        <treatedBy rdf:resource="#specialist_neurologist"/>
+        <treatedBy rdf:resource="#specialist_physiotherapist"/>
+    </Patient>
+    
+    <Patient rdf:about="#patient_stroke_severe">
+        <hasCondition rdf:datatype="&xsd;string">Инсульт</hasCondition>
+        <hasSeverity rdf:datatype="&xsd;string">Тяжелая</hasSeverity>
+        <hasAgeGroup rdf:datatype="&xsd;string">Пожилой</hasAgeGroup>
+        <treatedBy rdf:resource="#specialist_neurologist"/>
+        <treatedBy rdf:resource="#specialist_physiotherapist"/>
+        <treatedBy rdf:resource="#specialist_ergotherapist"/>
+    </Patient>
+    
+    <Patient rdf:about="#patient_spinal_injury">
+        <hasCondition rdf:datatype="&xsd;string">Травма позвоночника</hasCondition>
+        <hasSeverity rdf:datatype="&xsd;string">Тяжелая</hasSeverity>
+        <hasAgeGroup rdf:datatype="&xsd;string">Молодой</hasAgeGroup>
+        <treatedBy rdf:resource="#specialist_orthopedist"/>
+        <treatedBy rdf:resource="#specialist_physiotherapist"/>
+    </Patient>
+    
+    <Patient rdf:about="#patient_arthritis">
+        <hasCondition rdf:datatype="&xsd;string">Артрит</hasCondition>
+        <hasSeverity rdf:datatype="&xsd;string">Средняя</hasSeverity>
+        <hasAgeGroup rdf:datatype="&xsd;string">Пожилой</hasAgeGroup>
+        <treatedBy rdf:resource="#specialist_orthopedist"/>
+        <treatedBy rdf:resource="#specialist_physiotherapist"/>
+    </Patient>
+    
+    <Patient rdf:about="#patient_cerebral_palsy">
+        <hasCondition rdf:datatype="&xsd;string">ДЦП</hasCondition>
+        <hasSeverity rdf:datatype="&xsd;string">Средняя</hasSeverity>
+        <hasAgeGroup rdf:datatype="&xsd;string">Детский</hasAgeGroup>
+        <treatedBy rdf:resource="#specialist_neurologist"/>
+        <treatedBy rdf:resource="#specialist_lfk_doctor"/>
+    </Patient>
+    
+    <Patient rdf:about="#patient_post_surgery">
+        <hasCondition rdf:datatype="&xsd;string">После операции</hasCondition>
+        <hasSeverity rdf:datatype="&xsd;string">Легкая</hasSeverity>
+        <hasAgeGroup rdf:datatype="&xsd;string">Взрослый</hasAgeGroup>
+        <treatedBy rdf:resource="#specialist_physiotherapist"/>
+        <treatedBy rdf:resource="#specialist_massage_therapist"/>
+    </Patient>
+    
+    <Patient rdf:about="#patient_sports_injury">
+        <hasCondition rdf:datatype="&xsd;string">Спортивная травма</hasCondition>
+        <hasSeverity rdf:datatype="&xsd;string">Средняя</hasSeverity>
+        <hasAgeGroup rdf:datatype="&xsd;string">Молодой</hasAgeGroup>
+        <treatedBy rdf:resource="#specialist_orthopedist"/>
+        <treatedBy rdf:resource="#specialist_physiotherapist"/>
+    </Patient>
+    
+    <Patient rdf:about="#patient_age_related">
+        <hasCondition rdf:datatype="&xsd;string">Возрастные изменения</hasCondition>
+        <hasSeverity rdf:datatype="&xsd;string">Легкая</hasSeverity>
+        <hasAgeGroup rdf:datatype="&xsd;string">Пожилой</hasAgeGroup>
+        <treatedBy rdf:resource="#specialist_physiotherapist"/>
+        <treatedBy rdf:resource="#specialist_lfk_doctor"/>
+    </Patient>
+    
+    <RehabilitationProgram rdf:about="#program_neurological_mild">
+        <hasDuration rdf:datatype="&xsd;integer">30</hasDuration>
+        <hasSessionCount rdf:datatype="&xsd;integer">15</hasSessionCount>
+        <includesMethod rdf:resource="#method_physiotherapy_electro"/>
+        <includesMethod rdf:resource="#method_exercise_therapy"/>
+        <supervisedBy rdf:resource="#specialist_neurologist"/>
+        <supervisedBy rdf:resource="#specialist_physiotherapist"/>
+        <suitableFor rdf:resource="#patient_stroke_mild"/>
+        <suitableFor rdf:resource="#patient_post_surgery"/>
+    </RehabilitationProgram>
+    
+    <RehabilitationProgram rdf:about="#program_neurological_severe">
+        <hasDuration rdf:datatype="&xsd;integer">60</hasDuration>
+        <hasSessionCount rdf:datatype="&xsd;integer">30</hasSessionCount>
+        <includesMethod rdf:resource="#method_physiotherapy_magnet"/>
+        <includesMethod rdf:resource="#method_mechanotherapy_robot"/>
+        <includesMethod rdf:resource="#method_occupational_therapy"/>
+        <supervisedBy rdf:resource="#specialist_neurologist"/>
+        <supervisedBy rdf:resource="#specialist_physiotherapist"/>
+        <supervisedBy rdf:resource="#specialist_ergotherapist"/>
+        <suitableFor rdf:resource="#patient_stroke_severe"/>
+        <suitableFor rdf:resource="#patient_spinal_injury"/>
+    </RehabilitationProgram>
+    
+    <RehabilitationProgram rdf:about="#program_orthopedic">
+        <hasDuration rdf:datatype="&xsd;integer">45</hasDuration>
+        <hasSessionCount rdf:datatype="&xsd;integer">20</hasSessionCount>
+        <includesMethod rdf:resource="#method_physiotherapy_electro"/>
+        <includesMethod rdf:resource="#method_exercise_therapy"/>
+        <includesMethod rdf:resource="#method_massage"/>
+        <supervisedBy rdf:resource="#specialist_orthopedist"/>
+        <supervisedBy rdf:resource="#specialist_physiotherapist"/>
+        <suitableFor rdf:resource="#patient_arthritis"/>
+        <suitableFor rdf:resource="#patient_sports_injury"/>
+    </RehabilitationProgram>
+    
+    <RehabilitationProgram rdf:about="#program_gerontological">
+        <hasDuration rdf:datatype="&xsd;integer">40</hasDuration>
+        <hasSessionCount rdf:datatype="&xsd;integer">18</hasSessionCount>
+        <includesMethod rdf:resource="#method_exercise_therapy"/>
+        <includesMethod rdf:resource="#method_hydrotherapy"/>
+        <includesMethod rdf:resource="#method_massage"/>
+        <supervisedBy rdf:resource="#specialist_physiotherapist"/>
+        <supervisedBy rdf:resource="#specialist_lfk_doctor"/>
+        <suitableFor rdf:resource="#patient_age_related"/>
+        <suitableFor rdf:resource="#patient_arthritis"/>
+    </RehabilitationProgram>
+    
+    <RehabilitationProgram rdf:about="#program_pediatric">
+        <hasDuration rdf:datatype="&xsd;integer">90</hasDuration>
+        <hasSessionCount rdf:datatype="&xsd;integer">40</hasSessionCount>
+        <includesMethod rdf:resource="#method_physiotherapy_magnet"/>
+        <includesMethod rdf:resource="#method_hydrotherapy"/>
+        <includesMethod rdf:resource="#method_occupational_therapy"/>
+        <supervisedBy rdf:resource="#specialist_neurologist"/>
+        <supervisedBy rdf:resource="#specialist_lfk_doctor"/>
+        <suitableFor rdf:resource="#patient_cerebral_palsy"/>
+    </RehabilitationProgram>
+    
+    <RehabilitationProgram rdf:about="#program_sports">
+        <hasDuration rdf:datatype="&xsd;integer">30</hasDuration>
+        <hasSessionCount rdf:datatype="&xsd;integer">12</hasSessionCount>
+        <includesMethod rdf:resource="#method_physiotherapy_electro"/>
+        <includesMethod rdf:resource="#method_exercise_therapy"/>
+        <includesMethod rdf:resource="#method_massage"/>
+        <supervisedBy rdf:resource="#specialist_orthopedist"/>
+        <supervisedBy rdf:resource="#specialist_physiotherapist"/>
+        <suitableFor rdf:resource="#patient_sports_injury"/>
+    </RehabilitationProgram>
+    
+    <RehabilitationProgram rdf:about="#program_postoperative">
+        <hasDuration rdf:datatype="&xsd;integer">25</hasDuration>
+        <hasSessionCount rdf:datatype="&xsd;integer">10</hasSessionCount>
+        <includesMethod rdf:resource="#method_physiotherapy_magnet"/>
+        <includesMethod rdf:resource="#method_massage"/>
+        <supervisedBy rdf:resource="#specialist_physiotherapist"/>
+        <supervisedBy rdf:resource="#specialist_massage_therapist"/>
+        <suitableFor rdf:resource="#patient_post_surgery"/>
+    </RehabilitationProgram>
+    
+    <RehabilitationProgram rdf:about="#program_pain_management">
+        <hasDuration rdf:datatype="&xsd;integer">35</hasDuration>
+        <hasSessionCount rdf:datatype="&xsd;integer">16</hasSessionCount>
+        <includesMethod rdf:resource="#method_physiotherapy_electro"/>
+        <includesMethod rdf:resource="#method_massage"/>
+        <includesMethod rdf:resource="#method_psychological_cbt"/>
+        <supervisedBy rdf:resource="#specialist_physiotherapist"/>
+        <supervisedBy rdf:resource="#specialist_psychologist"/>
+        <suitableFor rdf:resource="#patient_arthritis"/>
+        <suitableFor rdf:resource="#patient_age_related"/>
+    </RehabilitationProgram>
+    
+    <RehabilitationMethod rdf:about="#method_physiotherapy_electro">
+        <hasEffectivenessScore rdf:datatype="&xsd;integer">85</hasEffectivenessScore>
+        <requiresSpecialist rdf:resource="#specialist_physiotherapist"/>
+    </RehabilitationMethod>
+    
+    <RehabilitationMethod rdf:about="#method_physiotherapy_magnet">
+        <hasEffectivenessScore rdf:datatype="&xsd;integer">78</hasEffectivenessScore>
+        <requiresSpecialist rdf:resource="#specialist_physiotherapist"/>
+    </RehabilitationMethod>
+    
+    <RehabilitationMethod rdf:about="#method_exercise_therapy">
+        <hasEffectivenessScore rdf:datatype="&xsd;integer">90</hasEffectivenessScore>
+        <requiresSpecialist rdf:resource="#specialist_lfk_doctor"/>
+    </RehabilitationMethod>
+    
+    <RehabilitationMethod rdf:about="#method_mechanotherapy_robot">
+        <hasEffectivenessScore rdf:datatype="&xsd;integer">82</hasEffectivenessScore>
+        <requiresSpecialist rdf:resource="#specialist_physiotherapist"/>
+        <requiresSpecialist rdf:resource="#specialist_rehabilitologist"/>
+    </RehabilitationMethod>
+    
+    <RehabilitationMethod rdf:about="#method_hydrotherapy">
+        <hasEffectivenessScore rdf:datatype="&xsd;integer">88</hasEffectivenessScore>
+        <requiresSpecialist rdf:resource="#specialist_physiotherapist"/>
+    </RehabilitationMethod>
+    
+    <RehabilitationMethod rdf:about="#method_occupational_therapy">
+        <hasEffectivenessScore rdf:datatype="&xsd;integer">80</hasEffectivenessScore>
+        <requiresSpecialist rdf:resource="#specialist_ergotherapist"/>
+    </RehabilitationMethod>
+    
+    <RehabilitationMethod rdf:about="#method_psychological_cbt">
+        <hasEffectivenessScore rdf:datatype="&xsd;integer">75</hasEffectivenessScore>
+        <requiresSpecialist rdf:resource="#specialist_psychologist"/>
+    </RehabilitationMethod>
+    
+    <RehabilitationMethod rdf:about="#method_massage">
+        <hasEffectivenessScore rdf:datatype="&xsd;integer">70</hasEffectivenessScore>
+        <requiresSpecialist rdf:resource="#specialist_massage_therapist"/>
+    </RehabilitationMethod>
+    
+    <Specialist rdf:about="#specialist_neurologist"/>
+    <Specialist rdf:about="#specialist_physiotherapist"/>
+    <Specialist rdf:about="#specialist_lfk_doctor"/>
+    <Specialist rdf:about="#specialist_psychologist"/>
+    <Specialist rdf:about="#specialist_orthopedist"/>
+    <Specialist rdf:about="#specialist_ergotherapist"/>
+    <Specialist rdf:about="#specialist_rehabilitologist"/>
+    <Specialist rdf:about="#specialist_massage_therapist"/>
+    
+</rdf:RDF>
