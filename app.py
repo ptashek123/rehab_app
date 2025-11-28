@@ -3,131 +3,140 @@ from owlready2 import *
 
 app = Flask(__name__)
 
-onto = get_ontology("ontology/rehab_ontology.owl").load()
+onto = get_ontology("ontology/rehab_ontology.owx").load()
 
-def get_all_subclasses(cls):
-    """Безопасное получение всех подклассов"""
+def safe_get_subclasses(cls):
+    """Безопасное получение подклассов"""
     try:
-        return cls.subclasses()
-    except:
+        return list(cls.subclasses())
+    except Exception as e:
+        print(f"Error getting subclasses for {cls}: {e}")
         return []
 
-def get_all_instances(cls):
-    """Безопасное получение всех экземпляров"""
+def safe_get_instances(cls):
+    """Безопасное получение экземпляров"""
     try:
-        return cls.instances()
-    except:
+        return list(cls.instances())
+    except Exception as e:
+        print(f"Error getting instances for {cls}: {e}")
         return []
+
+def get_all_entities(class_name):
+    """Получение всех сущностей класса (классов и индивидов)"""
+    entities = []
+    try:
+        main_class = onto.search_one(iri=f"*{class_name}")
+        if main_class:
+            entities.append(main_class.name)
+            for subclass in safe_get_subclasses(main_class):
+                entities.append(subclass.name)
+            for instance in safe_get_instances(main_class):
+                if hasattr(instance, 'name') and instance.name:
+                    entities.append(instance.name)
+    except Exception as e:
+        print(f"Error getting entities for {class_name}: {e}")
+    
+    return list(set(entities))
 
 def recommend_programs(selected_symptoms, selected_conditions):
-    """
-    Функция для подбора программ на основе симптомов и состояний.
-    """
+    """Подбор программ на основе симптомов и состояний"""
     recommended_programs = []
 
-    symptom_objs = []
-    for symptom_name in selected_symptoms:
-        obj = onto.search_one(iri="*%s" % symptom_name)
-        if not obj:
-            obj = onto.search_one(label=symptom_name)
-        if obj:
-            symptom_objs.append(obj)
-    
-    condition_objs = []
-    for condition_name in selected_conditions:
-        obj = onto.search_one(iri="*%s" % condition_name)
-        if not obj:
-            obj = onto.search_one(label=condition_name)
-        if obj:
-            condition_objs.append(obj)
+    try:
+        all_programs = []
+        rehab_class = onto.search_one(iri="*RehabProgram")
+        if rehab_class:
+            all_programs = safe_get_instances(rehab_class)
+        
+        print(f"Found {len(all_programs)} programs")
 
-    all_programs = []
-    for program_class in get_all_subclasses(onto.RehabProgram):
-        all_programs.extend(get_all_instances(program_class))
-    all_programs.extend(get_all_instances(onto.RehabProgram))
-
-    for program in all_programs:
-        if not program:
-            continue
-            
-        # Критерий 1: Программа рекомендована для выбранных условий
-        is_recommended = False
-        try:
-            recommendations = list(program.isRecommendedFor)
-            for rec in recommendations:
-                if rec in condition_objs or rec in symptom_objs:
-                    is_recommended = True
-                    break
-        except:
-            pass
-
-        # Критерий 2: Нет противопоказаний
-        has_contraindication = False
-        try:
-            contraindications = list(program.hasContraindication)
-            for contra in contraindications:
-                if contra in condition_objs or contra in symptom_objs:
-                    has_contraindication = True
-                    break
-        except:
-            pass
-
-        if is_recommended and not has_contraindication:
-            methods = []
-            try:
-                methods = [m.name for m in program.includesMethod]
-            except:
-                pass
+        for program in all_programs:
+            if not program:
+                continue
                 
-            recommended_programs.append({
+            program_info = {
                 'name': program.name,
-                'methods': methods
-            })
+                'methods': [],
+                'recommended_for': [],
+                'contraindications': []
+            }
+
+            try:
+                if hasattr(program, 'includesMethod'):
+                    methods = list(program.includesMethod)
+                    program_info['methods'] = [m.name for m in methods if hasattr(m, 'name')]
+            except Exception as e:
+                print(f"Error getting methods for {program.name}: {e}")
+
+            is_recommended = False
+            try:
+                if hasattr(program, 'isRecommendedFor'):
+                    recommendations = list(program.isRecommendedFor)
+                    program_info['recommended_for'] = [r.name for r in recommendations if hasattr(r, 'name')]
+                    
+                    for rec in recommendations:
+                        rec_name = getattr(rec, 'name', None)
+                        if rec_name in selected_symptoms or rec_name in selected_conditions:
+                            is_recommended = True
+                            break
+            except Exception as e:
+                print(f"Error getting recommendations for {program.name}: {e}")
+
+            has_contraindication = False
+            try:
+                if hasattr(program, 'hasContraindication'):
+                    contraindications = list(program.hasContraindication)
+                    program_info['contraindications'] = [c.name for c in contraindications if hasattr(c, 'name')]
+                    
+                    for contra in contraindications:
+                        contra_name = getattr(contra, 'name', None)
+                        if contra_name in selected_symptoms or contra_name in selected_conditions:
+                            has_contraindication = True
+                            break
+            except Exception as e:
+                print(f"Error getting contraindications for {program.name}: {e}")
+
+            if is_recommended and not has_contraindication:
+                recommended_programs.append(program_info)
+
+    except Exception as e:
+        print(f"Error in recommend_programs: {e}")
 
     return recommended_programs
 
 @app.route('/')
 def index():
-    """Главная страница с формой выбора."""
+    """Главная страница с формой выбора"""
     try:
-        all_symptoms = []
-        symptom_classes = list(get_all_subclasses(onto.Symptom))
-        for cls in symptom_classes:
-            all_symptoms.append(cls.name)
-            all_symptoms.extend([ind.name for ind in get_all_instances(cls)])
+        symptoms = get_all_entities("Symptom")
+        conditions = get_all_entities("MedicalCondition")
         
-        all_symptoms.extend([ind.name for ind in get_all_instances(onto.Symptom)])
+        print(f"Loaded {len(symptoms)} symptoms and {len(conditions)} conditions")
         
-        all_conditions = []
-        condition_classes = list(get_all_subclasses(onto.MedicalCondition))
-        for cls in condition_classes:
-            all_conditions.append(cls.name)
-            all_conditions.extend([ind.name for ind in get_all_instances(cls)])
-        
-        all_conditions.extend([ind.name for ind in get_all_instances(onto.MedicalCondition)])
-
-        all_symptoms = list(set([s for s in all_symptoms if s]))
-        all_conditions = list(set([c for c in all_conditions if c]))
-
     except Exception as e:
-        print(f"Error loading ontology data: {e}")
-        all_symptoms = ["Pain", "LimitedMobility", "MuscleWeakness"]  # fallback
-        all_conditions = ["Stroke", "SpinalInjury", "JointInjury"]    # fallback
+        print(f"Error loading ontology: {e}")
+        symptoms = ["Боль", "ОграниченнаяПодвижность", "МышечнаяСлабость"]
+        conditions = ["Инсульт", "ТравмаПозвоночника", "ТравмаСустава"]
 
-    return render_template('index.html', symptoms=all_symptoms, conditions=all_conditions)
+    return render_template('index.html', symptoms=symptoms, conditions=conditions)
 
 @app.route('/recommend', methods=['POST'])
 def get_recommendations():
-    """Обработка формы и вывод результатов."""
+    """Обработка формы и вывод результатов"""
     selected_symptoms = request.form.getlist('symptoms')
     selected_conditions = request.form.getlist('conditions')
+    
+    print(f"Selected symptoms: {selected_symptoms}")
+    print(f"Selected conditions: {selected_conditions}")
 
     programs = recommend_programs(selected_symptoms, selected_conditions)
+    
+    print(f"Found {len(programs)} recommended programs")
 
     return render_template('results.html', 
-                           programs=programs, 
-                           selected_symptoms=selected_symptoms, 
-                           selected_conditions=selected_conditions)
+                         programs=programs,
+                         selected_symptoms=selected_symptoms,
+                         selected_conditions=selected_conditions)
 
 if __name__ == '__main__':
     app.run(debug=True)

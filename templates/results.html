@@ -17,11 +17,21 @@
         </div>
 
         {% if programs %}
-        <div class="list-group">
+        <div class="row">
             {% for program in programs %}
-            <div class="list-group-item">
-                <h5 class="mb-1">{{ program.name }}</h5>
-                <p class="mb-1"><strong>Включаемые методы:</strong> {{ program.methods | join(', ') }}</p>
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ program.name }}</h5>
+                        {% if program.methods %}
+                        <p class="card-text"><strong>Методы:</strong> {{ program.methods | join(', ') }}</p>
+                        {% endif %}
+                        {% if program.recommended_for %}
+                        <p class="card-text"><small class="text-muted">Рекомендовано для: {{ program.recommended_for |
+                                join(', ') }}</small></p>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -31,7 +41,7 @@
         </div>
         {% endif %}
 
-        <a href="/" class="btn btn-secondary mt-4">Назад</a>
+        <a href="/" class="btn btn-secondary mt-4">Назад к подбору</a>
     </div>
 </body>
 
