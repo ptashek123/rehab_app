@@ -1,231 +1,289 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify, flash
 from owlready2 import *
+import json
+import os
 
 app = Flask(__name__)
+app.secret_key = 'rehab_secret_key_2024'
 
-onto = get_ontology("ontology/rehab_ontology.owx").load()
-
-def extract_readable_name(entity):
-    """Извлечь читаемое имя из сущности"""
-    if hasattr(entity, 'comment') and entity.comment:
-        comment = entity.comment.first()
-        if comment and comment.strip():
-            return comment.strip()
-    
-    if hasattr(entity, 'label') and entity.label:
-        label = entity.label.first()
-        if label and label.strip():
-            return label.strip()
-    
-    name = entity.name
-    if ':' in name:
-        name = name.split(':')[-1]
-    return name
-
-def get_all_entities_directly():
-    """Получить все сущности напрямую, без поиска по классам"""
-    all_data = {
-        'symptoms': set(),
-        'conditions': set(),
-        'programs': []
-    }
-    
+def load_ontology():
     try:
-        properties = {}
-        for prop in onto.object_properties():
-            prop_name = extract_readable_name(prop)
-            properties[prop.name] = {
-                'readable_name': prop_name,
-                'object': prop
-            }
-            print(f"Property: {prop.name} -> {prop_name}")
-        
-        for individual in onto.individuals():
-            individual_name = extract_readable_name(individual)
-            individual_types = [extract_readable_name(t) for t in individual.is_a if hasattr(t, 'iri')]
-            
-            print(f"Individual: {individual_name} (types: {individual_types})")
-            
-            is_symptom = any('symptom' in str(t).lower() or 'симптом' in str(extract_readable_name(t)).lower() for t in individual.is_a)
-            is_condition = any('condition' in str(t).lower() or 'состояние' in str(extract_readable_name(t)).lower() or 'medical' in str(t).lower() for t in individual.is_a)
-            is_program = any('program' in str(t).lower() or 'програм' in str(extract_readable_name(t)).lower() or 'rehab' in str(t).lower() for t in individual.is_a)
-            
-            if is_symptom:
-                all_data['symptoms'].add(individual_name)
-            elif is_condition:
-                all_data['conditions'].add(individual_name)
-            elif is_program:
-                program_data = {
-                    'name': individual_name,
-                    'object': individual,
-                    'methods': [],
-                    'recommendations': [],
-                    'contraindications': []
-                }
-                
-                for prop_name, prop_info in properties.items():
-                    try:
-                        values = getattr(individual, prop_name, [])
-                        if not isinstance(values, list):
-                            values = [values]
-                        
-                        for value in values:
-                            if value:
-                                value_name = extract_readable_name(value)
-                                if 'method' in prop_info['readable_name'].lower() or 'метод' in prop_info['readable_name'].lower():
-                                    program_data['methods'].append(value_name)
-                                elif 'recommend' in prop_info['readable_name'].lower() or 'рекоменд' in prop_info['readable_name'].lower():
-                                    program_data['recommendations'].append(value_name)
-                                elif 'contraindicat' in prop_info['readable_name'].lower() or 'противопок' in prop_info['readable_name'].lower():
-                                    program_data['contraindications'].append(value_name)
-                    except Exception as e:
-                        print(f"Error processing property {prop_name} for {individual_name}: {e}")
-                
-                all_data['programs'].append(program_data)
-        
-        all_data['symptoms'] = list(all_data['symptoms'])
-        all_data['conditions'] = list(all_data['conditions'])
-        
+        onto_path.append("ontology")
+        onto = get_ontology("rehab_ontology.owl").load()
+        return onto
     except Exception as e:
-        print(f"Error in get_all_entities_directly: {e}")
-    
-    return all_data
+        print(f"Ошибка загрузки онтологии: {e}")
+        return None
 
-def recommend_programs_smart(selected_symptoms, selected_conditions, all_data):
-    """Умный подбор программ с поиском по ключевым словам"""
-    recommended_programs = []
-    
-    print(f"Selected: symptoms={selected_symptoms}, conditions={selected_conditions}")
-    print(f"Available programs: {len(all_data['programs'])}")
-    
-    for program in all_data['programs']:
-        print(f"\nChecking program: {program['name']}")
-        print(f"  Recommendations: {program['recommendations']}")
-        print(f"  Contraindications: {program['contraindications']}")
+onto = load_ontology()
+
+class RehabilitationSystem:
+    def __init__(self, ontology):
+        self.onto = ontology
+        self.condition_mapping = {
+            'инсульт': ['patient_stroke_mild', 'patient_stroke_severe'],
+            'травма позвоночника': ['patient_spinal_injury'],
+            'артрит': ['patient_arthritis'],
+            'дцп': ['patient_cerebral_palsy'],
+            'после операции': ['patient_post_surgery'],
+            'спортивная травма': ['patient_sports_injury'],
+            'возрастные изменения': ['patient_age_related']
+        }
         
-        has_recommendation = False
-        matches = []
+        self.severity_mapping = {
+            'легкая': 'Легкая',
+            'средняя': 'Средняя', 
+            'тяжелая': 'Тяжелая'
+        }
         
-        for recommendation in program['recommendations']:
-            for symptom in selected_symptoms:
-                if symptom.lower() in recommendation.lower() or recommendation.lower() in symptom.lower():
-                    has_recommendation = True
-                    matches.append(f"симптом '{symptom}'")
-                    print(f"  ✓ Matches symptom: {symptom} -> {recommendation}")
-            
-            for condition in selected_conditions:
-                if condition.lower() in recommendation.lower() or recommendation.lower() in condition.lower():
-                    has_recommendation = True
-                    matches.append(f"состояние '{condition}'")
-                    print(f"  ✓ Matches condition: {condition} -> {recommendation}")
-        
-        has_contraindication = False
-        for contraindication in program['contraindications']:
-            for symptom in selected_symptoms:
-                if symptom.lower() in contraindication.lower() or contraindication.lower() in symptom.lower():
-                    has_contraindication = True
-                    print(f"  ✗ Contraindicated for symptom: {symptom} -> {contraindication}")
-                    break
-            
-            for condition in selected_conditions:
-                if condition.lower() in contraindication.lower() or contraindication.lower() in condition.lower():
-                    has_contraindication = True
-                    print(f"  ✗ Contraindicated for condition: {condition} -> {contraindication}")
-                    break
-            
-            if has_contraindication:
-                break
-        
-        if has_recommendation and not has_contraindication:
+        self.age_mapping = {
+            'детский': 'Детский',
+            'взрослый': 'Взрослый',
+            'пожилой': 'Пожилой'
+        }
+
+    def get_all_programs(self):
+        """Получить все программы реабилитации"""
+        programs = []
+        for program in self.onto.RehabilitationProgram.instances():
             program_info = {
-                'name': program['name'],
-                'methods': program['methods'],
-                'recommended_for': program['recommendations'],
-                'matches': matches
+                'name': program.name,
+                'display_name': self._format_name(program.name),
+                'duration': program.hasDuration[0] if program.hasDuration else 0,
+                'session_count': program.hasSessionCount[0] if program.hasSessionCount else 0,
+                'methods': [self._format_name(method.name) for method in program.includesMethod],
+                'specialists': [self._format_name(spec.name) for spec in program.supervisedBy],
+                'suitable_patients': [self._format_name(patient.name) for patient in program.suitableFor]
             }
-            recommended_programs.append(program_info)
-            print(f"  ✅ ADDED TO RECOMMENDATIONS")
-    
-    return recommended_programs
+            programs.append(program_info)
+        return programs
 
-ontology_data = None
+    def find_optimal_programs(self, patient_data):
+        """Подбор оптимальных программ реабилитации"""
+        try:
+            suitable_patient_types = self._find_suitable_patient_types(patient_data)
+            
+            if not suitable_patient_types:
+                return []
+
+            suitable_programs = []
+            
+            for program in self.onto.RehabilitationProgram.instances():
+                program_patients = [patient.name for patient in program.suitableFor]
+                
+                matching_patients = set(program_patients) & set(suitable_patient_types)
+                
+                if matching_patients:
+                    suitability_score = self._calculate_suitability_score(
+                        program, patient_data, len(matching_patients)
+                    )
+                    
+                    program_info = {
+                        'program': program,
+                        'score': suitability_score,
+                        'matching_patients': [self._format_name(p) for p in matching_patients],
+                        'methods': [self._format_name(method.name) for method in program.includesMethod],
+                        'specialists': [self._format_name(spec.name) for spec in program.supervisedBy],
+                        'duration': program.hasDuration[0] if program.hasDuration else 'Не указано',
+                        'session_count': program.hasSessionCount[0] if program.hasSessionCount else 'Не указано'
+                    }
+                    suitable_programs.append(program_info)
+
+            suitable_programs.sort(key=lambda x: x['score'], reverse=True)
+            return suitable_programs[:5]
+            
+        except Exception as e:
+            print(f"Ошибка при подборе программ: {e}")
+            return []
+
+    def _find_suitable_patient_types(self, patient_data):
+        """Находим подходящие типы пациентов из онтологии"""
+        diagnosis = patient_data['diagnosis'].lower()
+        severity = self.severity_mapping.get(patient_data['severity'], '')
+        age_group = self.age_mapping.get(patient_data['age_group'], '')
+        
+        suitable_types = []
+        
+        base_types = self.condition_mapping.get(diagnosis, [])
+        
+        for patient_type in base_types:
+            patient_instance = self.onto.search_one(iri=f"*#{patient_type}")
+            if patient_instance:
+                patient_severity = patient_instance.hasSeverity[0] if patient_instance.hasSeverity else ''
+                patient_age = patient_instance.hasAgeGroup[0] if patient_instance.hasAgeGroup else ''
+                
+                if (not severity or patient_severity == severity) and \
+                   (not age_group or patient_age == age_group):
+                    suitable_types.append(patient_type)
+        
+        return suitable_types if suitable_types else base_types
+
+    def _calculate_suitability_score(self, program, patient_data, matching_count):
+        """Расчет балла соответствия программы"""
+        score = matching_count * 25
+        
+        goals = patient_data.get('goals', [])
+        program_methods = [method.name for method in program.includesMethod]
+        
+        goal_bonus = 0
+        for goal in goals:
+            if self._goal_matches_methods(goal, program_methods):
+                goal_bonus += 10
+                
+        score += goal_bonus
+        
+        mobility = patient_data.get('mobility_restrictions', '')
+        if mobility == 'тяжелая' and 'method_mechanotherapy_robot' in program_methods:
+            score += 15
+        elif mobility == 'легкая' and 'method_exercise_therapy' in program_methods:
+            score += 10
+            
+        return min(score, 100)
+
+    def _goal_matches_methods(self, goal, methods):
+        """Проверка соответствия целей методам"""
+        goal_method_map = {
+            'walking': ['method_exercise_therapy', 'method_mechanotherapy_robot'],
+            'mobility': ['method_physiotherapy_electro', 'method_physiotherapy_magnet'],
+            'pain_relief': ['method_physiotherapy_electro', 'method_massage'],
+            'coordination': ['method_exercise_therapy', 'method_occupational_therapy'],
+            'psychological': ['method_psychological_cbt'],
+            'daily_activities': ['method_occupational_therapy']
+        }
+        
+        required_methods = goal_method_map.get(goal, [])
+        return any(method in methods for method in required_methods)
+
+    def _format_name(self, name):
+        """Форматирование имени для отображения"""
+        return name.replace('_', ' ').title()
+
+    def get_program_details(self, program_name):
+        """Получить детальную информацию о программе"""
+        program = self.onto.search_one(iri=f"*#{program_name}")
+        if not program:
+            return None
+            
+        return {
+            'name': program.name,
+            'display_name': self._format_name(program.name),
+            'duration': program.hasDuration[0] if program.hasDuration else 'Не указано',
+            'session_count': program.hasSessionCount[0] if program.hasSessionCount else 'Не указано',
+            'methods': [{
+                'name': self._format_name(method.name),
+                'effectiveness': method.hasEffectivenessScore[0] if method.hasEffectivenessScore else 'Не указано'
+            } for method in program.includesMethod],
+            'specialists': [self._format_name(spec.name) for spec in program.supervisedBy],
+            'suitable_patients': [self._format_name(patient.name) for patient in program.suitableFor]
+        }
+
+if onto:
+    rehab_system = RehabilitationSystem(onto)
+else:
+    rehab_system = None
+    print("ВНИМАНИЕ: Онтология не загружена!")
 
 @app.route('/')
 def index():
-    """Главная страница с формой выбора"""
-    global ontology_data
+    return render_template('index.html')
+
+@app.route('/patient-form')
+def patient_form():
+    return render_template('patient_form.html')
+
+@app.route('/find-program', methods=['POST'])
+def find_program():
+    if not rehab_system:
+        flash('Ошибка: система не загружена', 'error')
+        return render_template('patient_form.html')
     
     try:
-        if ontology_data is None:
-            ontology_data = get_all_entities_directly()
+        patient_data = {
+            'diagnosis': request.form['diagnosis'],
+            'severity': request.form['severity'],
+            'age_group': request.form['age_group'],
+            'goals': request.form.getlist('goals'),
+            'mobility_restrictions': request.form.get('mobility_restrictions', ''),
+            'pain_level': request.form.get('pain_level', '')
+        }
         
-        symptoms = ontology_data['symptoms']
-        conditions = ontology_data['conditions']
+        optimal_programs = rehab_system.find_optimal_programs(patient_data)
         
-        print(f"Loaded {len(symptoms)} symptoms: {symptoms}")
-        print(f"Loaded {len(conditions)} conditions: {conditions}")
-        print(f"Loaded {len(ontology_data['programs'])} programs")
+        formatted_programs = []
+        for program in optimal_programs:
+            formatted_programs.append({
+                'name': program['program'].name,
+                'display_name': rehab_system._format_name(program['program'].name),
+                'score': program['score'],
+                'methods': program['methods'],
+                'specialists': program['specialists'],
+                'duration': program['duration'],
+                'session_count': program['session_count'],
+                'matching_patients': program['matching_patients']
+            })
         
-        if not symptoms:
-            symptoms = ["Боль", "Депрессия", "Ограниченная подвижность"]
-        if not conditions:
-            conditions = ["Инсульт", "Травма позвоночника", "Неврологическое расстройство"]
-            
+        return render_template('results.html', 
+                             programs=formatted_programs,
+                             patient_data=patient_data)
+    
     except Exception as e:
-        print(f"Error loading ontology: {e}")
-        symptoms = ["Боль", "Депрессия", "Ограниченная подвижность"]
-        conditions = ["Инсульт", "Травма позвоночника", "Неврологическое расстройство"]
-        ontology_data = None
-    
-    return render_template('index.html', symptoms=symptoms, conditions=conditions)
+        flash(f'Ошибка при обработке запроса: {str(e)}', 'error')
+        return render_template('patient_form.html')
 
-@app.route('/recommend', methods=['POST'])
-def get_recommendations():
-    """Обработка формы и вывод результатов"""
-    global ontology_data
+@app.route('/all-programs')
+def all_programs():
+    if not rehab_system:
+        flash('Ошибка: система не загружена', 'error')
+        return render_template('index.html')
     
-    selected_symptoms = request.form.getlist('symptoms')
-    selected_conditions = request.form.getlist('conditions')
-    
-    print(f"\n" + "="*50)
-    print(f"USER SELECTION:")
-    print(f"Symptoms: {selected_symptoms}")
-    print(f"Conditions: {selected_conditions}")
-    print("="*50)
+    programs = rehab_system.get_all_programs()
+    return render_template('all_programs.html', programs=programs)
 
-    if ontology_data is None:
-        ontology_data = get_all_entities_directly()
+@app.route('/program/<program_name>')
+def program_detail(program_name):
+    if not rehab_system:
+        flash('Ошибка: система не загружена', 'error')
+        return render_template('index.html')
     
-    programs = recommend_programs_smart(selected_symptoms, selected_conditions, ontology_data)
+    program = rehab_system.get_program_details(program_name)
+    if not program:
+        flash('Программа не найдена', 'error')
+        return render_template('all_programs.html')
     
-    print(f"\nFINAL: Found {len(programs)} recommended programs")
+    return render_template('program_detail.html', program=program)
 
-    return render_template('results.html', 
-                         programs=programs,
-                         selected_symptoms=selected_symptoms,
-                         selected_conditions=selected_conditions)
+@app.route('/api/programs')
+def api_programs():
+    if not rehab_system:
+        return jsonify({'error': 'System not loaded'}), 500
+    
+    programs = rehab_system.get_all_programs()
+    return jsonify(programs)
 
-@app.route('/debug_all')
-def debug_all():
-    """Полная отладка всей онтологии"""
-    global ontology_data
+@app.route('/api/find-program', methods=['POST'])
+def api_find_program():
+    if not rehab_system:
+        return jsonify({'error': 'System not loaded'}), 500
     
-    if ontology_data is None:
-        ontology_data = get_all_entities_directly()
+    try:
+        patient_data = request.get_json()
+        programs = rehab_system.find_optimal_programs(patient_data)
+        
+        simplified_programs = []
+        for program in programs:
+            simplified_programs.append({
+                'name': program['program'].name,
+                'display_name': rehab_system._format_name(program['program'].name),
+                'score': program['score'],
+                'methods': program['methods'],
+                'specialists': program['specialists'],
+                'duration': program['duration']
+            })
+        
+        return jsonify({'programs': simplified_programs})
     
-    return {
-        'symptoms': ontology_data['symptoms'],
-        'conditions': ontology_data['conditions'],
-        'programs': [
-            {
-                'name': p['name'],
-                'methods': p['methods'],
-                'recommendations': p['recommendations'],
-                'contraindications': p['contraindications']
-            }
-            for p in ontology_data['programs']
-        ]
-    }
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)

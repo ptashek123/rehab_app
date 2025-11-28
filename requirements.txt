@@ -1,2 +1,4 @@
 Flask==2.3.3
-owlready2==0.41
+owlready2==0.40
+rdflib==6.3.2
+python-dotenv==1.0.0
