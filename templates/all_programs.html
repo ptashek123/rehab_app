@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Все программы реабилитации{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">Все программы реабилитации</h2>
+        <p class="lead">Полный список доступных программ с детальной информацией</p>
+
+        {% for program in programs %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ program.display_name }}</h5>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>Длительность:</strong> {{ program.duration }} дней<br>
+                        <strong>Сеансов:</strong> {{ program.session_count }}
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Методы:</strong>
+                        <ul class="mb-0">
+                            {% for method in program.methods %}
+                            <li>{{ method }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Специалисты:</strong>
+                        <ul class="mb-0">
+                            {% for specialist in program.specialists %}
+                            <li>{{ specialist }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <strong>Подходит для:</strong> {{ program.suitable_patients|join(', ') }}
+                </div>
+
+                <div class="text-end mt-3">
+                    <a href="{{ url_for('program_detail', program_name=program.name) }}"
+                        class="btn btn-primary btn-sm">Детальная информация</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

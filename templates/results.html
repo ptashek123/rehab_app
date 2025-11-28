@@ -1,95 +1,104 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Результаты подбора</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+{% block title %}Результаты подбора{% endblock %}
 
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Рекомендованные программы реабилитации</h1>
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">Рекомендованные программы реабилитации</h2>
 
+        <!-- Информация о пациенте -->
         <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Данные пациента</h5>
+            </div>
             <div class="card-body">
-                <h4 class="card-title">На основе введенных данных:</h4>
-                <p class="card-text"><strong>Симптомы:</strong>
-                    {% if selected_symptoms %}
-                    {{ selected_symptoms | join(', ') }}
-                    {% else %}
-                    не выбраны
-                    {% endif %}
-                </p>
-                <p class="card-text"><strong>Медицинские состояния:</strong>
-                    {% if selected_conditions %}
-                    {{ selected_conditions | join(', ') }}
-                    {% else %}
-                    не выбраны
-                    {% endif %}
-                </p>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong>Диагноз:</strong><br>
+                        {{ patient_data.diagnosis }}
+                    </div>
+                    <div class="col-md-2">
+                        <strong>Степень тяжести:</strong><br>
+                        {{ patient_data.severity }}
+                    </div>
+                    <div class="col-md-2">
+                        <strong>Возрастная группа:</strong><br>
+                        {{ patient_data.age_group }}
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Цели:</strong><br>
+                        {{ patient_data.goals|join(', ') if patient_data.goals else 'Не указаны' }}
+                    </div>
+                    <div class="col-md-2">
+                        <strong>Подвижность:</strong><br>
+                        {{ patient_data.mobility_restrictions if patient_data.mobility_restrictions else 'Не указано' }}
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Результаты -->
         {% if programs %}
-        <h3 class="mb-3">Найдено программ: {{ programs | length }}</h3>
-        <div class="row">
-            {% for program in programs %}
-            <div class="col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-header bg-success text-white">
-                        <h5 class="card-title mb-0">{{ program.name }}</h5>
-                        {% if program.match_count %}
-                        <small>Совпадений: {{ program.match_count }}</small>
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        {% if program.methods %}
-                        <h6 class="card-subtitle mb-2 text-muted">Методы лечения:</h6>
-                        <ul class="list-group list-group-flush mb-3">
+        {% for program in programs %}
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ program.display_name }}</h5>
+                <span
+                    class="badge bg-{% if program.score >= 80 %}success{% elif program.score >= 60 %}warning{% else %}danger{% endif %} fs-6">
+                    Релевантность: {{ program.score }}%
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Методы реабилитации:</h6>
+                        <ul class="list-group list-group-flush">
                             {% for method in program.methods %}
                             <li class="list-group-item">{{ method }}</li>
                             {% endfor %}
                         </ul>
-                        {% endif %}
-
-                        {% if program.recommended_for %}
-                        <h6 class="card-subtitle mb-2 text-muted">Рекомендовано для:</h6>
-                        <p class="card-text">{{ program.recommended_for | join(', ') }}</p>
-                        {% endif %}
-
-                        {% if program.matches %}
-                        <div class="alert alert-info mt-3">
-                            <small><strong>Совпадения с вашим запросом:</strong><br>
-                                {{ program.matches | join(', ') }}</small>
-                        </div>
-                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Специалисты:</h6>
+                        <ul class="list-group list-group-flush">
+                            {% for specialist in program.specialists %}
+                            <li class="list-group-item">{{ specialist }}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <strong>Длительность:</strong> {{ program.duration }} дней
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Количество сеансов:</strong> {{ program.session_count }}
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Подходит для:</strong> {{ program.matching_patients|join(', ') }}
+                    </div>
+                </div>
+
+                <div class="text-center mt-3">
+                    <a href="{{ url_for('program_detail', program_name=program.name) }}"
+                        class="btn btn-outline-primary btn-sm">Подробнее о программе</a>
+                </div>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
         {% else %}
-        <div class="alert alert-warning" role="alert">
-            <h4 class="alert-heading">Программы не найдены</h4>
-            <p>Возможные причины:</p>
-            <ul>
-                <li>В онтологии нет программ для выбранных симптомов/состояний</li>
-                <li>Названия в онтологии отличаются от выбранных</li>
-                <li>Программы имеют противопоказания для выбранных условий</li>
-            </ul>
-            <hr>
-            <p class="mb-0">
-                <a href="/debug_programs" class="alert-link">Посмотреть все доступные программы</a> |
-                <a href="/" class="alert-link">Изменить критерии поиска</a>
-            </p>
+        <div class="alert alert-warning text-center">
+            <h4>Программы не найдены</h4>
+            <p>Попробуйте изменить параметры поиска или обратитесь к специалисту для индивидуальной консультации.</p>
         </div>
         {% endif %}
 
-        <div class="mt-4">
-            <a href="/" class="btn btn-secondary">Вернуться к подбору</a>
-            <a href="/debug_programs" class="btn btn-outline-info">Отладка: все программы</a>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('patient_form') }}" class="btn btn-primary me-2">Новый поиск</a>
+            <a href="{{ url_for('all_programs') }}" class="btn btn-outline-secondary">Посмотреть все программы</a>
         </div>
     </div>
-</body>
-
-</html>
+</div>
+{% endblock %}

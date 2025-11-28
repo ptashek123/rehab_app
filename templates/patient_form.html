@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Анкета пациента{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4">Анкета пациента для подбора программы</h2>
+
+        <form action="{{ url_for('find_program') }}" method="post" id="patientForm">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Основная информация</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Диагноз:</label>
+                            <select name="diagnosis" class="form-select" required>
+                                <option value="">Выберите диагноз</option>
+                                <option value="инсульт">Инсульт</option>
+                                <option value="травма позвоночника">Травма позвоночника</option>
+                                <option value="артрит">Артрит</option>
+                                <option value="дцп">Детский церебральный паралич (ДЦП)</option>
+                                <option value="после операции">После операции</option>
+                                <option value="спортивная травма">Спортивная травма</option>
+                                <option value="возрастные изменения">Возрастные изменения</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Степень тяжести:</label>
+                            <select name="severity" class="form-select" required>
+                                <option value="">Выберите степень</option>
+                                <option value="легкая">Легкая</option>
+                                <option value="средняя">Средняя</option>
+                                <option value="тяжелая">Тяжелая</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Возрастная группа:</label>
+                            <select name="age_group" class="form-select" required>
+                                <option value="">Выберите возраст</option>
+                                <option value="детский">Детский (0-18)</option>
+                                <option value="взрослый">Взрослый (18-65)</option>
+                                <option value="пожилой">Пожилой (65+)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Ограничения подвижности:</label>
+                            <select name="mobility_restrictions" class="form-select">
+                                <option value="">Не указано</option>
+                                <option value="легкая">Легкая</option>
+                                <option value="средняя">Средняя</option>
+                                <option value="тяжелая">Тяжелая</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Цели реабилитации</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="goals" value="walking" id="goal1">
+                                <label class="form-check-label" for="goal1">Восстановление ходьбы</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="goals" value="mobility"
+                                    id="goal2">
+                                <label class="form-check-label" for="goal2">Улучшение подвижности</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="goals" value="pain_relief"
+                                    id="goal3">
+                                <label class="form-check-label" for="goal3">Снятие болевого синдрома</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="goals" value="coordination"
+                                    id="goal4">
+                                <label class="form-check-label" for="goal4">Улучшение координации</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="goals" value="psychological"
+                                    id="goal5">
+                                <label class="form-check-label" for="goal5">Психологическая поддержка</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="goals" value="daily_activities"
+                                    id="goal6">
+                                <label class="form-check-label" for="goal6">Восстановление бытовых навыков</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Дополнительная информация</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">Уровень боли:</label>
+                        <select name="pain_level" class="form-select">
+                            <option value="">Не указано</option>
+                            <option value="острый">Острый</option>
+                            <option value="хронический">Хронический</option>
+                            <option value="отсутствует">Отсутствует</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Найти оптимальную программу</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

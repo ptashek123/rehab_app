@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}{{ program.display_name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('all_programs') }}">Все программы</a></li>
+                <li class="breadcrumb-item active">{{ program.display_name }}</li>
+            </ol>
+        </nav>
+
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">{{ program.display_name }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5>Основные параметры</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Длительность программы:</span>
+                                <strong>{{ program.duration }} дней</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Количество сеансов:</span>
+                                <strong>{{ program.session_count }}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Специалисты</h5>
+                        <div class="list-group">
+                            {% for specialist in program.specialists %}
+                            <span class="list-group-item">{{ specialist }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <h5>Методы реабилитации</h5>
+                <div class="row">
+                    {% for method in program.methods %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">{{ method.name }}</h6>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        Эффективность: {{ method.effectiveness }}%
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <h5 class="mt-4">Подходит для пациентов</h5>
+                <div class="alert alert-info">
+                    {{ program.suitable_patients|join(', ') }}
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{{ url_for('patient_form') }}" class="btn btn-primary">Подобрать для пациента</a>
+                <a href="{{ url_for('all_programs') }}" class="btn btn-outline-secondary">Назад к списку</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

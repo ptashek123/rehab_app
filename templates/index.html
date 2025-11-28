@@ -1,48 +1,49 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Подбор реабилитационной программы</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto text-center">
+        <h1 class="display-4 mb-4">Система подбора реабилитационных программ</h1>
+        <p class="lead mb-4">Интеллектуальная система на основе семантической онтологии для оптимального подбора
+            программ медицинской реабилитации</p>
 
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Подбор оптимальной реабилитационной программы</h1>
-        <p class="lead">Выберите симптомы и медицинские состояния пациента.</p>
-
-        <form action="/recommend" method="post">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Симптомы</h3>
-                    {% for symptom in symptoms %}
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="symptoms" value="{{ symptom }}"
-                            id="sym_{{ loop.index }}">
-                        <label class="form-check-label" for="sym_{{ loop.index }}">
-                            {{ symptom }}
-                        </label>
+        <div class="row mt-5">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">🤖 Умный подбор</h5>
+                        <p class="card-text">Автоматический подбор программ на основе онтологии знаний</p>
                     </div>
-                    {% endfor %}
-                </div>
-
-                <div class="col-md-6">
-                    <h3>Медицинские состояния</h3>
-                    {% for condition in conditions %}
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="conditions" value="{{ condition }}"
-                            id="cond_{{ loop.index }}">
-                        <label class="form-check-label" for="cond_{{ loop.index }}">
-                            {{ condition }}
-                        </label>
-                    </div>
-                    {% endfor %}
                 </div>
             </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">🎯 Индивидуальный подход</h5>
+                        <p class="card-text">Учет диагноза, тяжести состояния, возраста и целей пациента</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">📊 Семантический анализ</h5>
+                        <p class="card-text">Использование OWL онтологии для точных рекомендаций</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <button type="submit" class="btn btn-primary mt-4">Подобрать программу</button>
-        </form>
+        <div class="mt-4">
+            <a href="{{ url_for('patient_form') }}" class="btn btn-primary btn-lg me-3">Начать подбор программы</a>
+            <a href="{{ url_for('all_programs') }}" class="btn btn-outline-primary btn-lg">Все программы</a>
+        </div>
+
+        {% if not rehab_system %}
+        <div class="alert alert-warning mt-4">
+            <strong>Внимание:</strong> Онтология не загружена. Некоторые функции могут быть недоступны.
+        </div>
+        {% endif %}
     </div>
-</body>
-
-</html>
+</div>
+{% endblock %}
