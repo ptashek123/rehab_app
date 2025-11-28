@@ -111,8 +111,8 @@ def index():
 
     except Exception as e:
         print(f"Error loading ontology data: {e}")
-        all_symptoms = ["Pain", "LimitedMobility", "MuscleWeakness"]
-        all_conditions = ["Stroke", "SpinalInjury", "JointInjury"]
+        all_symptoms = ["Pain", "LimitedMobility", "MuscleWeakness"]  # fallback
+        all_conditions = ["Stroke", "SpinalInjury", "JointInjury"]    # fallback
 
     return render_template('index.html', symptoms=all_symptoms, conditions=all_conditions)
 
