@@ -44,11 +44,38 @@ def get_all_entities_by_class_label(class_label):
     
     return list(set(entities))
 
+def find_matching_entities(selected_names, target_class_label):
+    """Найти сущности в онтологии, которые соответствуют выбранным названиям"""
+    matches = []
+    try:
+        target_class = get_entity_by_label(target_class_label)
+        if not target_class:
+            return matches
+            
+        all_entities = list(target_class.instances()) + list(target_class.subclasses())
+        
+        for entity in all_entities:
+            entity_russian = get_russian_name(entity)
+            if entity_russian in selected_names:
+                matches.append(entity)
+                print(f"Found match: {entity_russian} -> {entity}")
+                
+    except Exception as e:
+        print(f"Error in find_matching_entities: {e}")
+    
+    return matches
+
 def recommend_programs(selected_symptoms, selected_conditions):
     """Подбор программ на основе симптомов и состояний"""
     recommended_programs = []
 
     try:
+        symptom_entities = find_matching_entities(selected_symptoms, "Symptom")
+        condition_entities = find_matching_entities(selected_conditions, "MedicalCondition")
+        
+        print(f"Matching symptoms: {[get_russian_name(e) for e in symptom_entities]}")
+        print(f"Matching conditions: {[get_russian_name(e) for e in condition_entities]}")
+
         rehab_class = get_entity_by_label("RehabProgram")
         if not rehab_class:
             print("RehabProgram class not found")
@@ -61,7 +88,7 @@ def recommend_programs(selected_symptoms, selected_conditions):
         includes_prop = get_entity_by_label("includesMethod")
         contraindication_prop = get_entity_by_label("hasContraindication")
 
-        print(f"Properties - Recommended: {recommended_prop}, Includes: {includes_prop}, Contraindication: {contraindication_prop}")
+        print(f"Properties found - Recommended: {recommended_prop}, Includes: {includes_prop}")
 
         for program in all_programs:
             if not program:
@@ -71,12 +98,13 @@ def recommend_programs(selected_symptoms, selected_conditions):
             if not program_name:
                 continue
 
-            print(f"Checking program: {program_name}")
+            print(f"\n=== Checking program: {program_name} ===")
 
             program_info = {
                 'name': program_name,
                 'methods': [],
-                'recommended_for': []
+                'recommended_for': [],
+                'matches': []
             }
 
             if includes_prop:
@@ -89,31 +117,33 @@ def recommend_programs(selected_symptoms, selected_conditions):
                             method_name = get_russian_name(method)
                             if method_name:
                                 program_info['methods'].append(method_name)
+                    print(f"Methods: {program_info['methods']}")
                 except Exception as e:
-                    print(f"Error getting methods for {program_name}: {e}")
+                    print(f"Error getting methods: {e}")
 
             is_recommended = False
-            program_recommendations = []
             if recommended_prop:
                 try:
                     recommendations = getattr(program, recommended_prop.name, [])
                     if not isinstance(recommendations, list):
                         recommendations = [recommendations]
                     
+                    print(f"Program recommendations: {[get_russian_name(r) for r in recommendations if r]}")
+                    
                     for rec in recommendations:
                         if rec:
                             rec_name = get_russian_name(rec)
                             if rec_name:
-                                program_recommendations.append(rec_name)
+                                program_info['recommended_for'].append(rec_name)
                                 
-                                # Проверяем совпадение с выбранными симптомами/состояниями
-                                if rec_name in selected_symptoms or rec_name in selected_conditions:
+                                if rec in symptom_entities or rec in condition_entities:
                                     is_recommended = True
-                                    print(f"Program {program_name} recommended for {rec_name}")
+                                    match_type = "symptom" if rec in symptom_entities else "condition"
+                                    program_info['matches'].append(f"{rec_name} ({match_type})")
+                                    print(f"✓ Match found: {rec_name}")
                     
-                    program_info['recommended_for'] = program_recommendations
                 except Exception as e:
-                    print(f"Error getting recommendations for {program_name}: {e}")
+                    print(f"Error getting recommendations: {e}")
 
             has_contraindication = False
             if contraindication_prop:
@@ -123,18 +153,17 @@ def recommend_programs(selected_symptoms, selected_conditions):
                         contraindications = [contraindications]
                     
                     for contra in contraindications:
-                        if contra:
-                            contra_name = get_russian_name(contra)
-                            if contra_name and (contra_name in selected_symptoms or contra_name in selected_conditions):
-                                has_contraindication = True
-                                print(f"Program {program_name} contraindicated for {contra_name}")
-                                break
+                        if contra and (contra in symptom_entities or contra in condition_entities):
+                            has_contraindication = True
+                            print(f"✗ Contraindication: {get_russian_name(contra)}")
+                            break
                 except Exception as e:
-                    print(f"Error getting contraindications for {program_name}: {e}")
+                    print(f"Error getting contraindications: {e}")
 
             if is_recommended and not has_contraindication:
+                program_info['match_count'] = len(program_info['matches'])
                 recommended_programs.append(program_info)
-                print(f"Added program to recommendations: {program_name}")
+                print(f"✅ ADDED TO RECOMMENDATIONS: {program_name}")
 
     except Exception as e:
         print(f"Error in recommend_programs: {e}")
@@ -152,14 +181,14 @@ def index():
         print(f"Loaded {len(conditions)} conditions: {conditions}")
         
         if not symptoms:
-            symptoms = ["Боль", "Ограниченная подвижность", "Мышечная слабость"]
+            symptoms = ["Боль", "Ограниченная подвижность", "Мышечная слабость", "Депрессия"]
         if not conditions:
-            conditions = ["Инсульт", "Травма позвоночника", "Травма сустава"]
+            conditions = ["Инсульт", "Травма позвоночника", "Травма сустава", "Неврологическое расстройство"]
             
     except Exception as e:
         print(f"Error loading ontology: {e}")
-        symptoms = ["Боль", "Ограниченная подвижность", "Мышечная слабость"]
-        conditions = ["Инсульт", "Травма позвоночника", "Травма сустава"]
+        symptoms = ["Боль", "Ограниченная подвижность", "Мышечная слабость", "Депрессия"]
+        conditions = ["Инсульт", "Травма позвоночника", "Травма сустава", "Неврологическое расстройство"]
     
     return render_template('index.html', symptoms=symptoms, conditions=conditions)
 
@@ -169,12 +198,15 @@ def get_recommendations():
     selected_symptoms = request.form.getlist('symptoms')
     selected_conditions = request.form.getlist('conditions')
     
-    print(f"Selected symptoms: {selected_symptoms}")
-    print(f"Selected conditions: {selected_conditions}")
+    print(f"\n" + "="*50)
+    print(f"SELECTED BY USER:")
+    print(f"Symptoms: {selected_symptoms}")
+    print(f"Conditions: {selected_conditions}")
+    print("="*50)
 
     programs = recommend_programs(selected_symptoms, selected_conditions)
     
-    print(f"Found {len(programs)} recommended programs")
+    print(f"\nFINAL RESULT: Found {len(programs)} recommended programs")
 
     return render_template('results.html', 
                          programs=programs,

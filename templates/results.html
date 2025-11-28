@@ -36,8 +36,11 @@
             {% for program in programs %}
             <div class="col-md-6 mb-4">
                 <div class="card h-100">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-success text-white">
                         <h5 class="card-title mb-0">{{ program.name }}</h5>
+                        {% if program.match_count %}
+                        <small>Совпадений: {{ program.match_count }}</small>
+                        {% endif %}
                     </div>
                     <div class="card-body">
                         {% if program.methods %}
@@ -53,6 +56,13 @@
                         <h6 class="card-subtitle mb-2 text-muted">Рекомендовано для:</h6>
                         <p class="card-text">{{ program.recommended_for | join(', ') }}</p>
                         {% endif %}
+
+                        {% if program.matches %}
+                        <div class="alert alert-info mt-3">
+                            <small><strong>Совпадения с вашим запросом:</strong><br>
+                                {{ program.matches | join(', ') }}</small>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -61,13 +71,23 @@
         {% else %}
         <div class="alert alert-warning" role="alert">
             <h4 class="alert-heading">Программы не найдены</h4>
-            <p class="mb-0">К сожалению, по вашему запросу не найдено подходящих реабилитационных программ. Попробуйте
-                изменить критерии поиска.</p>
+            <p>Возможные причины:</p>
+            <ul>
+                <li>В онтологии нет программ для выбранных симптомов/состояний</li>
+                <li>Названия в онтологии отличаются от выбранных</li>
+                <li>Программы имеют противопоказания для выбранных условий</li>
+            </ul>
+            <hr>
+            <p class="mb-0">
+                <a href="/debug_programs" class="alert-link">Посмотреть все доступные программы</a> |
+                <a href="/" class="alert-link">Изменить критерии поиска</a>
+            </p>
         </div>
         {% endif %}
 
         <div class="mt-4">
             <a href="/" class="btn btn-secondary">Вернуться к подбору</a>
+            <a href="/debug_programs" class="btn btn-outline-info">Отладка: все программы</a>
         </div>
     </div>
 </body>
