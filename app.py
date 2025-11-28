@@ -5,213 +5,227 @@ app = Flask(__name__)
 
 onto = get_ontology("ontology/rehab_ontology.owx").load()
 
-def get_russian_name(entity):
-    """Получить русское название из rdfs:comment или использовать label"""
+def extract_readable_name(entity):
+    """Извлечь читаемое имя из сущности"""
     if hasattr(entity, 'comment') and entity.comment:
-        russian_name = entity.comment.first()
-        if russian_name:
-            return russian_name
+        comment = entity.comment.first()
+        if comment and comment.strip():
+            return comment.strip()
     
     if hasattr(entity, 'label') and entity.label:
-        english_name = entity.label.first()
-        if english_name:
-            return english_name
+        label = entity.label.first()
+        if label and label.strip():
+            return label.strip()
     
-    return entity.name
+    name = entity.name
+    if ':' in name:
+        name = name.split(':')[-1]
+    return name
 
-def get_entity_by_label(label):
-    """Найти сущность по метке (rdfs:label)"""
-    return onto.search_one(label=label)
-
-def get_all_entities_by_class_label(class_label):
-    """Получить все сущности по метке класса с русскими названиями"""
-    entities = []
-    try:
-        target_class = get_entity_by_label(class_label)
-        if target_class:
-            for individual in target_class.instances():
-                russian_name = get_russian_name(individual)
-                if russian_name:
-                    entities.append(russian_name)
-            
-            for subclass in target_class.subclasses():
-                russian_name = get_russian_name(subclass)
-                if russian_name and russian_name not in entities:
-                    entities.append(russian_name)
-                    
-    except Exception as e:
-        print(f"Error getting entities for {class_label}: {e}")
+def get_all_entities_directly():
+    """Получить все сущности напрямую, без поиска по классам"""
+    all_data = {
+        'symptoms': set(),
+        'conditions': set(),
+        'programs': []
+    }
     
-    return list(set(entities))
-
-def find_matching_entities(selected_names, target_class_label):
-    """Найти сущности в онтологии, которые соответствуют выбранным названиям"""
-    matches = []
     try:
-        target_class = get_entity_by_label(target_class_label)
-        if not target_class:
-            return matches
-            
-        all_entities = list(target_class.instances()) + list(target_class.subclasses())
-        
-        for entity in all_entities:
-            entity_russian = get_russian_name(entity)
-            if entity_russian in selected_names:
-                matches.append(entity)
-                print(f"Found match: {entity_russian} -> {entity}")
-                
-    except Exception as e:
-        print(f"Error in find_matching_entities: {e}")
-    
-    return matches
-
-def recommend_programs(selected_symptoms, selected_conditions):
-    """Подбор программ на основе симптомов и состояний"""
-    recommended_programs = []
-
-    try:
-        symptom_entities = find_matching_entities(selected_symptoms, "Symptom")
-        condition_entities = find_matching_entities(selected_conditions, "MedicalCondition")
-        
-        print(f"Matching symptoms: {[get_russian_name(e) for e in symptom_entities]}")
-        print(f"Matching conditions: {[get_russian_name(e) for e in condition_entities]}")
-
-        rehab_class = get_entity_by_label("RehabProgram")
-        if not rehab_class:
-            print("RehabProgram class not found")
-            return []
-        
-        all_programs = list(rehab_class.instances())
-        print(f"Found {len(all_programs)} programs")
-
-        recommended_prop = get_entity_by_label("isRecommendedFor")
-        includes_prop = get_entity_by_label("includesMethod")
-        contraindication_prop = get_entity_by_label("hasContraindication")
-
-        print(f"Properties found - Recommended: {recommended_prop}, Includes: {includes_prop}")
-
-        for program in all_programs:
-            if not program:
-                continue
-            
-            program_name = get_russian_name(program)
-            if not program_name:
-                continue
-
-            print(f"\n=== Checking program: {program_name} ===")
-
-            program_info = {
-                'name': program_name,
-                'methods': [],
-                'recommended_for': [],
-                'matches': []
+        properties = {}
+        for prop in onto.object_properties():
+            prop_name = extract_readable_name(prop)
+            properties[prop.name] = {
+                'readable_name': prop_name,
+                'object': prop
             }
-
-            if includes_prop:
-                try:
-                    methods = getattr(program, includes_prop.name, [])
-                    if not isinstance(methods, list):
-                        methods = [methods]
-                    for method in methods:
-                        if method:
-                            method_name = get_russian_name(method)
-                            if method_name:
-                                program_info['methods'].append(method_name)
-                    print(f"Methods: {program_info['methods']}")
-                except Exception as e:
-                    print(f"Error getting methods: {e}")
-
-            is_recommended = False
-            if recommended_prop:
-                try:
-                    recommendations = getattr(program, recommended_prop.name, [])
-                    if not isinstance(recommendations, list):
-                        recommendations = [recommendations]
-                    
-                    print(f"Program recommendations: {[get_russian_name(r) for r in recommendations if r]}")
-                    
-                    for rec in recommendations:
-                        if rec:
-                            rec_name = get_russian_name(rec)
-                            if rec_name:
-                                program_info['recommended_for'].append(rec_name)
-                                
-                                if rec in symptom_entities or rec in condition_entities:
-                                    is_recommended = True
-                                    match_type = "symptom" if rec in symptom_entities else "condition"
-                                    program_info['matches'].append(f"{rec_name} ({match_type})")
-                                    print(f"✓ Match found: {rec_name}")
-                    
-                except Exception as e:
-                    print(f"Error getting recommendations: {e}")
-
-            has_contraindication = False
-            if contraindication_prop:
-                try:
-                    contraindications = getattr(program, contraindication_prop.name, [])
-                    if not isinstance(contraindications, list):
-                        contraindications = [contraindications]
-                    
-                    for contra in contraindications:
-                        if contra and (contra in symptom_entities or contra in condition_entities):
-                            has_contraindication = True
-                            print(f"✗ Contraindication: {get_russian_name(contra)}")
-                            break
-                except Exception as e:
-                    print(f"Error getting contraindications: {e}")
-
-            if is_recommended and not has_contraindication:
-                program_info['match_count'] = len(program_info['matches'])
-                recommended_programs.append(program_info)
-                print(f"✅ ADDED TO RECOMMENDATIONS: {program_name}")
-
+            print(f"Property: {prop.name} -> {prop_name}")
+        
+        for individual in onto.individuals():
+            individual_name = extract_readable_name(individual)
+            individual_types = [extract_readable_name(t) for t in individual.is_a if hasattr(t, 'iri')]
+            
+            print(f"Individual: {individual_name} (types: {individual_types})")
+            
+            is_symptom = any('symptom' in str(t).lower() or 'симптом' in str(extract_readable_name(t)).lower() for t in individual.is_a)
+            is_condition = any('condition' in str(t).lower() or 'состояние' in str(extract_readable_name(t)).lower() or 'medical' in str(t).lower() for t in individual.is_a)
+            is_program = any('program' in str(t).lower() or 'програм' in str(extract_readable_name(t)).lower() or 'rehab' in str(t).lower() for t in individual.is_a)
+            
+            if is_symptom:
+                all_data['symptoms'].add(individual_name)
+            elif is_condition:
+                all_data['conditions'].add(individual_name)
+            elif is_program:
+                program_data = {
+                    'name': individual_name,
+                    'object': individual,
+                    'methods': [],
+                    'recommendations': [],
+                    'contraindications': []
+                }
+                
+                for prop_name, prop_info in properties.items():
+                    try:
+                        values = getattr(individual, prop_name, [])
+                        if not isinstance(values, list):
+                            values = [values]
+                        
+                        for value in values:
+                            if value:
+                                value_name = extract_readable_name(value)
+                                if 'method' in prop_info['readable_name'].lower() or 'метод' in prop_info['readable_name'].lower():
+                                    program_data['methods'].append(value_name)
+                                elif 'recommend' in prop_info['readable_name'].lower() or 'рекоменд' in prop_info['readable_name'].lower():
+                                    program_data['recommendations'].append(value_name)
+                                elif 'contraindicat' in prop_info['readable_name'].lower() or 'противопок' in prop_info['readable_name'].lower():
+                                    program_data['contraindications'].append(value_name)
+                    except Exception as e:
+                        print(f"Error processing property {prop_name} for {individual_name}: {e}")
+                
+                all_data['programs'].append(program_data)
+        
+        all_data['symptoms'] = list(all_data['symptoms'])
+        all_data['conditions'] = list(all_data['conditions'])
+        
     except Exception as e:
-        print(f"Error in recommend_programs: {e}")
+        print(f"Error in get_all_entities_directly: {e}")
+    
+    return all_data
 
+def recommend_programs_smart(selected_symptoms, selected_conditions, all_data):
+    """Умный подбор программ с поиском по ключевым словам"""
+    recommended_programs = []
+    
+    print(f"Selected: symptoms={selected_symptoms}, conditions={selected_conditions}")
+    print(f"Available programs: {len(all_data['programs'])}")
+    
+    for program in all_data['programs']:
+        print(f"\nChecking program: {program['name']}")
+        print(f"  Recommendations: {program['recommendations']}")
+        print(f"  Contraindications: {program['contraindications']}")
+        
+        has_recommendation = False
+        matches = []
+        
+        for recommendation in program['recommendations']:
+            for symptom in selected_symptoms:
+                if symptom.lower() in recommendation.lower() or recommendation.lower() in symptom.lower():
+                    has_recommendation = True
+                    matches.append(f"симптом '{symptom}'")
+                    print(f"  ✓ Matches symptom: {symptom} -> {recommendation}")
+            
+            for condition in selected_conditions:
+                if condition.lower() in recommendation.lower() or recommendation.lower() in condition.lower():
+                    has_recommendation = True
+                    matches.append(f"состояние '{condition}'")
+                    print(f"  ✓ Matches condition: {condition} -> {recommendation}")
+        
+        has_contraindication = False
+        for contraindication in program['contraindications']:
+            for symptom in selected_symptoms:
+                if symptom.lower() in contraindication.lower() or contraindication.lower() in symptom.lower():
+                    has_contraindication = True
+                    print(f"  ✗ Contraindicated for symptom: {symptom} -> {contraindication}")
+                    break
+            
+            for condition in selected_conditions:
+                if condition.lower() in contraindication.lower() or contraindication.lower() in condition.lower():
+                    has_contraindication = True
+                    print(f"  ✗ Contraindicated for condition: {condition} -> {contraindication}")
+                    break
+            
+            if has_contraindication:
+                break
+        
+        if has_recommendation and not has_contraindication:
+            program_info = {
+                'name': program['name'],
+                'methods': program['methods'],
+                'recommended_for': program['recommendations'],
+                'matches': matches
+            }
+            recommended_programs.append(program_info)
+            print(f"  ✅ ADDED TO RECOMMENDATIONS")
+    
     return recommended_programs
+
+ontology_data = None
 
 @app.route('/')
 def index():
     """Главная страница с формой выбора"""
+    global ontology_data
+    
     try:
-        symptoms = get_all_entities_by_class_label("Symptom")
-        conditions = get_all_entities_by_class_label("MedicalCondition")
+        if ontology_data is None:
+            ontology_data = get_all_entities_directly()
+        
+        symptoms = ontology_data['symptoms']
+        conditions = ontology_data['conditions']
         
         print(f"Loaded {len(symptoms)} symptoms: {symptoms}")
         print(f"Loaded {len(conditions)} conditions: {conditions}")
+        print(f"Loaded {len(ontology_data['programs'])} programs")
         
         if not symptoms:
-            symptoms = ["Боль", "Ограниченная подвижность", "Мышечная слабость", "Депрессия"]
+            symptoms = ["Боль", "Депрессия", "Ограниченная подвижность"]
         if not conditions:
-            conditions = ["Инсульт", "Травма позвоночника", "Травма сустава", "Неврологическое расстройство"]
+            conditions = ["Инсульт", "Травма позвоночника", "Неврологическое расстройство"]
             
     except Exception as e:
         print(f"Error loading ontology: {e}")
-        symptoms = ["Боль", "Ограниченная подвижность", "Мышечная слабость", "Депрессия"]
-        conditions = ["Инсульт", "Травма позвоночника", "Травма сустава", "Неврологическое расстройство"]
+        symptoms = ["Боль", "Депрессия", "Ограниченная подвижность"]
+        conditions = ["Инсульт", "Травма позвоночника", "Неврологическое расстройство"]
+        ontology_data = None
     
     return render_template('index.html', symptoms=symptoms, conditions=conditions)
 
 @app.route('/recommend', methods=['POST'])
 def get_recommendations():
     """Обработка формы и вывод результатов"""
+    global ontology_data
+    
     selected_symptoms = request.form.getlist('symptoms')
     selected_conditions = request.form.getlist('conditions')
     
     print(f"\n" + "="*50)
-    print(f"SELECTED BY USER:")
+    print(f"USER SELECTION:")
     print(f"Symptoms: {selected_symptoms}")
     print(f"Conditions: {selected_conditions}")
     print("="*50)
 
-    programs = recommend_programs(selected_symptoms, selected_conditions)
+    if ontology_data is None:
+        ontology_data = get_all_entities_directly()
     
-    print(f"\nFINAL RESULT: Found {len(programs)} recommended programs")
+    programs = recommend_programs_smart(selected_symptoms, selected_conditions, ontology_data)
+    
+    print(f"\nFINAL: Found {len(programs)} recommended programs")
 
     return render_template('results.html', 
                          programs=programs,
                          selected_symptoms=selected_symptoms,
                          selected_conditions=selected_conditions)
+
+@app.route('/debug_all')
+def debug_all():
+    """Полная отладка всей онтологии"""
+    global ontology_data
+    
+    if ontology_data is None:
+        ontology_data = get_all_entities_directly()
+    
+    return {
+        'symptoms': ontology_data['symptoms'],
+        'conditions': ontology_data['conditions'],
+        'programs': [
+            {
+                'name': p['name'],
+                'methods': p['methods'],
+                'recommendations': p['recommendations'],
+                'contraindications': p['contraindications']
+            }
+            for p in ontology_data['programs']
+        ]
+    }
 
 if __name__ == '__main__':
     app.run(debug=True)
