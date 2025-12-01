@@ -8,16 +8,25 @@
         <h2 class="mb-4 text-primary">Все программы реабилитации</h2>
         <p class="lead">Полный список доступных программ с детальной информацией</p>
 
+        {% if programs %}
         {% for program in programs %}
         <div class="card mb-3 program-card">
             <div class="card-body">
                 <h4 class="card-title text-primary">{{ program.display_name }}</h4>
 
                 <div class="row">
+                    {% if program.duration or program.session_count %}
                     <div class="col-md-4">
+                        {% if program.duration %}
                         <p><strong>⏱️ Длительность:</strong> {{ program.duration }} дней</p>
+                        {% endif %}
+                        {% if program.session_count %}
                         <p><strong>📅 Сеансов:</strong> {{ program.session_count }}</p>
+                        {% endif %}
                     </div>
+                    {% endif %}
+
+                    {% if program.methods %}
                     <div class="col-md-4">
                         <p><strong>🏥 Методы:</strong></p>
                         <ul class="mb-0">
@@ -26,6 +35,9 @@
                             {% endfor %}
                         </ul>
                     </div>
+                    {% endif %}
+
+                    {% if program.specialists %}
                     <div class="col-md-4">
                         <p><strong>👨‍⚕️ Специалисты:</strong></p>
                         <ul class="mb-0">
@@ -34,11 +46,14 @@
                             {% endfor %}
                         </ul>
                     </div>
+                    {% endif %}
                 </div>
 
+                {% if program.suitable_patients %}
                 <div class="mt-2">
                     <p><strong>👤 Подходит для:</strong> {{ program.suitable_patients|join(', ') }}</p>
                 </div>
+                {% endif %}
 
                 <div class="text-end mt-3">
                     <a href="{{ url_for('program_detail', program_name=program.name) }}"
@@ -47,6 +62,11 @@
             </div>
         </div>
         {% endfor %}
+        {% else %}
+        <div class="alert alert-info">
+            <p>Программы не загружены. Возможно, онтология пуста или произошла ошибка загрузки.</p>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

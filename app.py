@@ -11,6 +11,7 @@ def load_ontology():
         onto = get_ontology("rehabilitation.owx").load()
         print("✅ Онтология загружена успешно!")
         return onto
+
     except Exception as e:
         print(f"❌ Ошибка загрузки онтологии: {e}")
         return None
@@ -20,31 +21,37 @@ onto = load_ontology()
 class RehabilitationSystem:
     def __init__(self, ontology):
         self.onto = ontology
-        if ontology:
-            print("Система реабилитации инициализирована")
-        else:
-            print("ВНИМАНИЕ: Онтология не загружена!")
+        print("Система реабилитации инициализирована")
         
         self.condition_mapping = {
-            'инсульт': ['Пациент_Инсульт_Легкий', 'Пациент_Инсульт_Тяжелый'],
-            'травма позвоночника': ['Пациент_Травма_Позвоночника'],
-            'артрит': ['Пациент_Артрит'],
-            'дцп': ['Пациент_ДЦП'],
-            'после операции': ['Пациент_После_Операции'],
-            'спортивная травма': ['Пациент_Спортивная_Травма'],
-            'возрастные изменения': ['Пациент_Возрастные_Изменения']
+            'инсульт': ['patient_stroke_mild', 'patient_stroke_severe', 'Пациент_Инсульт_Легкий', 'Пациент_Инсульт_Тяжелый'],
+            'травма позвоночника': ['patient_spinal_injury', 'Пациент_Травма_Позвоночника'],
+            'артрит': ['patient_arthritis', 'Пациент_Артрит'],
+            'дцп': ['patient_cerebral_palsy', 'Пациент_ДЦП'],
+            'после операции': ['patient_post_surgery', 'Пациент_После_Операции'],
+            'спортивная травма': ['patient_sports_injury', 'Пациент_Спортивная_Травма'],
+            'возрастные изменения': ['patient_age_related', 'Пациент_Возрастные_Изменения']
         }
-
-    def get_russian_label(self, entity):
-        try:
-            if hasattr(entity, 'comment') and entity.comment:
-                comments = entity.comment if isinstance(entity.comment, list) else [entity.comment]
-                for comment in comments:
-                    if isinstance(comment, str) and comment.strip():
-                        return comment
-            return entity.name.replace('_', ' ').title()
-        except:
-            return entity.name if hasattr(entity, 'name') else str(entity)
+        
+        self.goal_translation = {
+            'walking': 'Ходьба',
+            'mobility': 'Подвижность', 
+            'pain_relief': 'Снятие боли',
+            'coordination': 'Координация',
+            'psychological': 'Психологическая поддержка',
+            'daily_activities': 'Бытовые навыки'
+        }
+        
+        self.method_translation = {
+            'method_physiotherapy_electro': 'Электрофорез',
+            'method_physiotherapy_magnet': 'Магнитотерапия',
+            'method_exercise_therapy': 'Лечебная физкультура',
+            'method_mechanotherapy_robot': 'Роботизированная терапия',
+            'method_hydrotherapy': 'Гидротерапия',
+            'method_occupational_therapy': 'Эрготерапия',
+            'method_psychological_cbt': 'Когнитивно-поведенческая терапия',
+            'method_massage': 'Массаж'
+        }
 
     def get_all_programs(self):
         """Получить все программы реабилитации"""
@@ -52,104 +59,242 @@ class RehabilitationSystem:
             return []
             
         programs = []
-        for program in self.onto.search(type=self.onto.ПрограммаРеабилитации):
-            program_info = {
-                'name': program.name,
-                'display_name': self.get_russian_label(program),
-                'duration': program.имеетДлительность[0] if hasattr(program, 'имеетДлительность') and program.имеетДлительность else 0,
-                'session_count': program.имеетКоличествоСеансов[0] if hasattr(program, 'имеетКоличествоСеансов') and program.имеетКоличествоСеансов else 0,
-                'methods': [self.get_russian_label(method) for method in program.включаетМетод] if hasattr(program, 'включаетМетод') else [],
-                'specialists': [self.get_russian_label(spec) for spec in program.курируется] if hasattr(program, 'курируется') else [],
-                'suitable_patients': [self.get_russian_label(patient) for patient in program.подходитДля] if hasattr(program, 'подходитДля') else []
-            }
-            programs.append(program_info)
+        try:
+            program_class = None
+            for cls in self.onto.classes():
+                if 'Программа' in str(cls) or 'Program' in str(cls):
+                    program_class = cls
+                    break
+            
+            if program_class:
+                all_instances = list(program_class.instances())
+            else:
+                all_instances = []
+                for cls in self.onto.classes():
+                    for inst in cls.instances():
+                        if 'program' in str(inst).lower() or 'программа' in str(inst).lower():
+                            all_instances.append(inst)
+            
+            print(f"Найдено {len(all_instances)} программ")
+            
+            for program in all_instances:
+                try:
+                    program_info = {
+                        'name': program.name,
+                        'display_name': self._get_display_name(program),
+                        'duration': self._get_property(program, 'hasDuration', 'имеетДлительность'),
+                        'session_count': self._get_property(program, 'hasSessionCount', 'имеетКоличествоСеансов'),
+                        'methods': self._get_related(program, 'includesMethod', 'включаетМетод'),
+                        'specialists': self._get_related(program, 'supervisedBy', 'курируется'),
+                        'suitable_patients': self._get_related(program, 'suitableFor', 'подходитДля')
+                    }
+                    programs.append(program_info)
+                except Exception as e:
+                    print(f"Ошибка при обработке программы {program}: {e}")
+                    continue
+                    
+        except Exception as e:
+            print(f"Ошибка в get_all_programs: {e}")
+            import traceback
+            traceback.print_exc()
+            
         return programs
+
+    def _get_display_name(self, entity):
+        """Получить отображаемое имя"""
+        try:
+            if hasattr(entity, 'comment') and entity.comment:
+                comment = entity.comment[0] if isinstance(entity.comment, list) else entity.comment
+                if comment and str(comment).strip():
+                    return str(comment)
+            
+            if hasattr(entity, 'label') and entity.label:
+                label = entity.label[0] if isinstance(entity.label, list) else entity.label
+                if label and str(label).strip():
+                    return str(label)
+            
+            name = entity.name
+            name = name.replace('_', ' ')
+            name = name.replace('program', '')
+            name = name.replace('Program', '')
+            name = name.replace('программа', '')
+            name = name.replace('Программа', '')
+            return name.strip().title()
+            
+        except:
+            return entity.name if hasattr(entity, 'name') else str(entity)
+
+    def _get_property(self, entity, *property_names):
+        """Получить значение свойства"""
+        for prop_name in property_names:
+            if hasattr(entity, prop_name):
+                value = getattr(entity, prop_name)
+                if value:
+                    return value[0] if isinstance(value, list) else value
+        return 'Не указано'
+
+    def _get_related(self, entity, *property_names):
+        """Получить связанные сущности"""
+        result = []
+        for prop_name in property_names:
+            if hasattr(entity, prop_name):
+                related = getattr(entity, prop_name)
+                if related:
+                    if isinstance(related, list):
+                        for item in related:
+                            display_name = self._get_display_name(item)
+                            result.append(display_name)
+                    else:
+                        display_name = self._get_display_name(related)
+                        result.append(display_name)
+        return result
 
     def find_optimal_programs(self, patient_data):
         """Подбор оптимальных программ реабилитации"""
         if not self.onto:
+            print("Онтология не загружена")
             return []
             
         try:
             diagnosis = patient_data['diagnosis'].lower()
-            suitable_patient_names = self.condition_mapping.get(diagnosis, [])
+            print(f"Диагноз пациента: {diagnosis}")
             
-            if not suitable_patient_names:
-                return []
-
+            possible_patient_names = self.condition_mapping.get(diagnosis, [])
+            print(f"Возможные имена пациентов: {possible_patient_names}")
+            
+            all_programs = self.get_all_programs()
+            print(f"Всего программ в системе: {len(all_programs)}")
+            
             suitable_programs = []
             
-            for program in self.onto.search(type=self.onto.ПрограммаРеабилитации):
-                program_patients = program.подходитДля if hasattr(program, 'подходитДля') else []
-                program_patient_names = [p.name for p in program_patients]
+            for program_info in all_programs:
+                program_name = program_info['name']
+                print(f"\nАнализируем программу: {program_name}")
                 
-                matching_patients = set(program_patient_names) & set(suitable_patient_names)
+                program = self.onto.search_one(iri=f"*#{program_name}")
+                if not program:
+                    print(f"  Программа {program_name} не найдена в онтологии")
+                    continue
                 
-                if matching_patients:
-                    suitability_score = len(matching_patients) * 25
+                program_patients = self._get_related(program, 'suitableFor', 'подходитДля')
+                print(f"  Пациенты программы: {program_patients}")
+                
+                matches_found = False
+                for patient_display_name in program_patients:
+                    for patient in self.onto.individuals():
+                        if hasattr(patient, 'name'):
+                            patient_display = self._get_display_name(patient)
+                            if patient_display == patient_display_name:
+                                for possible_name in possible_patient_names:
+                                    if possible_name in patient.name or possible_name in patient_display:
+                                        matches_found = True
+                                        print(f"  ✓ Найдено совпадение: {patient.name}")
+                                        break
+                        
+                if matches_found:
+                    base_score = 50
                     
                     goals = patient_data.get('goals', [])
-                    program_methods = [m.name for m in program.включаетМетод] if hasattr(program, 'включаетМетод') else []
+                    program_methods = program_info['methods']
                     
                     for goal in goals:
                         if self._goal_matches_methods(goal, program_methods):
-                            suitability_score += 10
+                            base_score += 10
                     
-                    suitability_score = min(suitability_score, 100)
+                    severity = patient_data.get('severity', '')
+                    if severity == 'тяжелая' and any('робот' in method.lower() for method in program_methods):
+                        base_score += 15
+                    elif severity == 'легкая' and any('лфк' in method.lower() for method in program_methods):
+                        base_score += 10
                     
-                    program_info = {
-                        'program': program,
-                        'score': suitability_score,
-                        'matching_patients': [self.get_russian_label(self.onto.search_one(iri=f"*#{p}")) for p in matching_patients],
-                        'methods': [self.get_russian_label(method) for method in program.включаетМетод] if hasattr(program, 'включаетМетод') else [],
-                        'specialists': [self.get_russian_label(spec) for spec in program.курируется] if hasattr(program, 'курируется') else [],
-                        'duration': program.имеетДлительность[0] if hasattr(program, 'имеетДлительность') and program.имеетДлительность else 'Не указано',
-                        'session_count': program.имеетКоличествоСеансов[0] if hasattr(program, 'имеетКоличествоСеансов') and program.имеетКоличествоСеансов else 'Не указано'
-                    }
+                    score = min(base_score, 100)
+                    
+                    program_info['score'] = score
+                    program_info['matching_patients'] = program_patients
                     suitable_programs.append(program_info)
-
-            suitable_programs.sort(key=lambda x: x['score'], reverse=True)
+                    print(f"  Программа добавлена с баллом: {score}")
+            
+            suitable_programs.sort(key=lambda x: x.get('score', 0), reverse=True)
+            print(f"\nВсего найдено подходящих программ: {len(suitable_programs)}")
+            
             return suitable_programs[:5]
             
         except Exception as e:
-            print(f"Ошибка при подборе программ: {e}")
+            print(f"Ошибка в find_optimal_programs: {e}")
+            import traceback
+            traceback.print_exc()
             return []
 
     def _goal_matches_methods(self, goal, methods):
         """Проверка соответствия целей методам"""
+        method_strings = [str(m).lower() for m in methods]
+        
         goal_method_map = {
-            'walking': ['Метод_ЛФК', 'Метод_Механотерапия_Робот'],
-            'mobility': ['Метод_Физиотерапия_Электро', 'Метод_Физиотерапия_Магнит'],
-            'pain_relief': ['Метод_Физиотерапия_Электро', 'Метод_Массаж'],
-            'coordination': ['Метод_ЛФК', 'Метод_Эрготерапия'],
-            'psychological': ['Метод_Психологическая_Терапия'],
-            'daily_activities': ['Метод_Эрготерапия']
+            'walking': ['лфк', 'exercise', 'механотерапия', 'робот'],
+            'mobility': ['физиотерапия', 'physiotherapy', 'электро', 'магнит'],
+            'pain_relief': ['физиотерапия', 'массаж', 'massage'],
+            'coordination': ['лфк', 'эрготерапия', 'occupational'],
+            'psychological': ['психологическая', 'психология', 'psychological', 'кпт'],
+            'daily_activities': ['эрготерапия', 'occupational', 'бытовые']
         }
         
         required_methods = goal_method_map.get(goal, [])
-        return any(method in methods for method in required_methods)
+        for required in required_methods:
+            for method in method_strings:
+                if required in method:
+                    return True
+        return False
+
+    def translate_goals(self, goals):
+        """Перевод целей на русский"""
+        return [self.goal_translation.get(goal, goal) for goal in goals]
 
     def get_program_details(self, program_name):
         """Получить детальную информацию о программе"""
         if not self.onto:
             return None
             
-        program = self.onto.search_one(iri=f"*#{program_name}")
-        if not program:
-            return None
+        try:
+            program = self.onto.search_one(iri=f"*#{program_name}")
+            if not program:
+                return None
             
-        return {
-            'name': program.name,
-            'display_name': self.get_russian_label(program),
-            'duration': program.имеетДлительность[0] if hasattr(program, 'имеетДлительность') and program.имеетДлительность else 'Не указано',
-            'session_count': program.имеетКоличествоСеансов[0] if hasattr(program, 'имеетКоличествоСеансов') and program.имеетКоличествоСеансов else 'Не указано',
-            'methods': [{
-                'name': self.get_russian_label(method),
-                'effectiveness': method.имеетЭффективность[0] if hasattr(method, 'имеетЭффективность') and method.имеетЭффективность else 'Не указано'
-            } for method in program.включаетМетод] if hasattr(program, 'включаетМетод') else [],
-            'specialists': [self.get_russian_label(spec) for spec in program.курируется] if hasattr(program, 'курируется') else [],
-            'suitable_patients': [self.get_russian_label(patient) for patient in program.подходитДля] if hasattr(program, 'подходитДля') else []
-        }
+            methods_with_effectiveness = []
+            if hasattr(program, 'includesMethod') or hasattr(program, 'включаетМетод'):
+                methods = getattr(program, 'includesMethod', []) or getattr(program, 'включаетМетод', [])
+                if not isinstance(methods, list):
+                    methods = [methods]
+                    
+                for method in methods:
+                    if method:
+                        effectiveness = 'Не указано'
+                        if hasattr(method, 'hasEffectivenessScore'):
+                            eff_value = method.hasEffectivenessScore
+                            if eff_value:
+                                effectiveness = eff_value[0] if isinstance(eff_value, list) else eff_value
+                        elif hasattr(method, 'имеетЭффективность'):
+                            eff_value = method.имеетЭффективность
+                            if eff_value:
+                                effectiveness = eff_value[0] if isinstance(eff_value, list) else eff_value
+                        
+                        methods_with_effectiveness.append({
+                            'name': self._get_display_name(method),
+                            'effectiveness': effectiveness
+                        })
+            
+            return {
+                'name': program.name,
+                'display_name': self._get_display_name(program),
+                'duration': self._get_property(program, 'hasDuration', 'имеетДлительность'),
+                'session_count': self._get_property(program, 'hasSessionCount', 'имеетКоличествоСеансов'),
+                'methods': methods_with_effectiveness,
+                'specialists': self._get_related(program, 'supervisedBy', 'курируется'),
+                'suitable_patients': self._get_related(program, 'suitableFor', 'подходитДля')
+            }
+            
+        except Exception as e:
+            print(f"Ошибка в get_program_details: {e}")
+            return None
 
 rehab_system = RehabilitationSystem(onto)
 
@@ -163,10 +308,6 @@ def patient_form():
 
 @app.route('/find-program', methods=['POST'])
 def find_program():
-    if not rehab_system.onto:
-        flash('Ошибка: система не загружена', 'error')
-        return render_template('patient_form.html')
-    
     try:
         patient_data = {
             'diagnosis': request.form['diagnosis'],
@@ -177,32 +318,27 @@ def find_program():
             'pain_level': request.form.get('pain_level', '')
         }
         
+        print(f"Данные пациента: {patient_data}")
+        
         optimal_programs = rehab_system.find_optimal_programs(patient_data)
         
-        formatted_programs = []
-        for program in optimal_programs:
-            formatted_programs.append({
-                'name': program['program'].name,
-                'display_name': program['display_name'] if 'display_name' in program else rehab_system.get_russian_label(program['program']),
-                'score': program['score'],
-                'methods': program['methods'],
-                'specialists': program['specialists'],
-                'duration': program['duration'],
-                'session_count': program['session_count'],
-                'matching_patients': program['matching_patients']
-            })
+        translated_goals = rehab_system.translate_goals(patient_data['goals'])
         
         return render_template('results.html', 
-                             programs=formatted_programs,
-                             patient_data=patient_data)
+                             programs=optimal_programs,
+                             patient_data=patient_data,
+                             translated_goals=translated_goals)
     
     except Exception as e:
         flash(f'Ошибка при обработке запроса: {str(e)}', 'error')
+        import traceback
+        traceback.print_exc()
         return render_template('patient_form.html')
 
 @app.route('/all-programs')
 def all_programs():
     programs = rehab_system.get_all_programs()
+    print(f"Всего программ для отображения: {len(programs)}")
     return render_template('all_programs.html', programs=programs)
 
 @app.route('/program/<program_name>')

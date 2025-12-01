@@ -22,8 +22,8 @@
                         <h5 class="text-secondary">📋 Основные параметры</h5>
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between">
-                                <span>⏱️ Длительность программы:</span>
-                                <strong>{{ program.duration }} дней</strong>
+                                <span>⏱️ Длительность программы (дней):</span>
+                                <strong>{{ program.duration }}</strong>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>📅 Количество сеансов:</span>
@@ -31,6 +31,7 @@
                             </li>
                         </ul>
                     </div>
+                    {% if program.specialists %}
                     <div class="col-md-6">
                         <h5 class="text-secondary">👨‍⚕️ Специалисты</h5>
                         <div class="list-group">
@@ -39,8 +40,10 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {% endif %}
                 </div>
 
+                {% if program.methods %}
                 <h5 class="text-secondary mb-3">🏥 Методы реабилитации</h5>
                 <div class="row">
                     {% for method in program.methods %}
@@ -50,7 +53,12 @@
                                 <h6 class="card-title">{{ method.name }}</h6>
                                 <p class="card-text">
                                     <small class="text-muted">
-                                        📊 Эффективность: {{ method.effectiveness }}%
+                                        📊 Эффективность:
+                                        {% if method.effectiveness and method.effectiveness != 'Не указано' %}
+                                        {{ method.effectiveness }}%
+                                        {% else %}
+                                        Не указана
+                                        {% endif %}
                                     </small>
                                 </p>
                             </div>
@@ -58,11 +66,14 @@
                     </div>
                     {% endfor %}
                 </div>
+                {% endif %}
 
+                {% if program.suitable_patients %}
                 <h5 class="mt-4 text-secondary">👤 Подходит для пациентов</h5>
                 <div class="alert alert-info">
                     {{ program.suitable_patients|join(', ') }}
                 </div>
+                {% endif %}
             </div>
             <div class="card-footer text-center">
                 <a href="{{ url_for('patient_form') }}" class="btn btn-primary me-2">🔍 Подобрать для пациента</a>

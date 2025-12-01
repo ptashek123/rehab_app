@@ -28,19 +28,7 @@
                     </div>
                     <div class="col-md-3">
                         <strong>Цели реабилитации:</strong><br>
-                        {% if patient_data.goals %}
-                        {% for goal in patient_data.goals %}
-                        {% if goal == 'walking' %}Ходьба
-                        {% elif goal == 'mobility' %}Подвижность
-                        {% elif goal == 'pain_relief' %}Снятие боли
-                        {% elif goal == 'coordination' %}Координация
-                        {% elif goal == 'psychological' %}Психология
-                        {% elif goal == 'daily_activities' %}Бытовые навыки
-                        {% else %}{{ goal }}{% endif %}{% if not loop.last %}, {% endif %}
-                        {% endfor %}
-                        {% else %}
-                        Не указаны
-                        {% endif %}
+                        {{ translated_goals|join(', ') if translated_goals else 'Не указаны' }}
                     </div>
                     <div class="col-md-3">
                         <strong>Ограничения подвижности:</strong><br>
@@ -58,12 +46,15 @@
         <div class="card mb-4 program-card border shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center bg-light">
                 <h4 class="mb-0 text-primary">{{ program.display_name }}</h4>
+                {% if program.score %}
                 <span
                     class="badge bg-{% if program.score >= 80 %}success{% elif program.score >= 60 %}warning{% else %}danger{% endif %} fs-6 p-2">
                     Релевантность: {{ program.score }}%
                 </span>
+                {% endif %}
             </div>
             <div class="card-body">
+                {% if program.methods %}
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <h5 class="text-secondary">🏥 Методы реабилитации:</h5>
@@ -82,18 +73,25 @@
                         </ul>
                     </div>
                 </div>
+                {% endif %}
 
                 <div class="row mb-3">
+                    {% if program.duration %}
                     <div class="col-md-4">
                         <strong>⏱️ Длительность:</strong> {{ program.duration }} дней
                     </div>
+                    {% endif %}
+                    {% if program.session_count %}
                     <div class="col-md-4">
                         <strong>📅 Количество сеансов:</strong> {{ program.session_count }}
                     </div>
+                    {% endif %}
+                    {% if program.matching_patients %}
                     <div class="col-md-4">
                         <strong>👤 Подходит для пациентов:</strong><br>
                         {{ program.matching_patients|join(', ') }}
                     </div>
+                    {% endif %}
                 </div>
 
                 <div class="text-center mt-3">
