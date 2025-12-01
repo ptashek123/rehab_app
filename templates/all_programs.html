@@ -5,21 +5,21 @@
 {% block content %}
 <div class="row">
     <div class="col-12">
-        <h2 class="mb-4">Все программы реабилитации</h2>
+        <h2 class="mb-4 text-primary">Все программы реабилитации</h2>
         <p class="lead">Полный список доступных программ с детальной информацией</p>
 
         {% for program in programs %}
-        <div class="card mb-3">
+        <div class="card mb-3 program-card">
             <div class="card-body">
-                <h5 class="card-title">{{ program.display_name }}</h5>
+                <h4 class="card-title text-primary">{{ program.display_name }}</h4>
 
                 <div class="row">
                     <div class="col-md-4">
-                        <strong>Длительность:</strong> {{ program.duration }} дней<br>
-                        <strong>Сеансов:</strong> {{ program.session_count }}
+                        <p><strong>⏱️ Длительность:</strong> {{ program.duration }} дней</p>
+                        <p><strong>📅 Сеансов:</strong> {{ program.session_count }}</p>
                     </div>
                     <div class="col-md-4">
-                        <strong>Методы:</strong>
+                        <p><strong>🏥 Методы:</strong></p>
                         <ul class="mb-0">
                             {% for method in program.methods %}
                             <li>{{ method }}</li>
@@ -27,7 +27,7 @@
                         </ul>
                     </div>
                     <div class="col-md-4">
-                        <strong>Специалисты:</strong>
+                        <p><strong>👨‍⚕️ Специалисты:</strong></p>
                         <ul class="mb-0">
                             {% for specialist in program.specialists %}
                             <li>{{ specialist }}</li>
@@ -37,12 +37,12 @@
                 </div>
 
                 <div class="mt-2">
-                    <strong>Подходит для:</strong> {{ program.suitable_patients|join(', ') }}
+                    <p><strong>👤 Подходит для:</strong> {{ program.suitable_patients|join(', ') }}</p>
                 </div>
 
                 <div class="text-end mt-3">
                     <a href="{{ url_for('program_detail', program_name=program.name) }}"
-                        class="btn btn-primary btn-sm">Детальная информация</a>
+                        class="btn btn-primary btn-sm">📊 Детальная информация</a>
                 </div>
             </div>
         </div>

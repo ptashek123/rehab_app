@@ -38,12 +38,6 @@
             <a href="{{ url_for('patient_form') }}" class="btn btn-primary btn-lg me-3">Начать подбор программы</a>
             <a href="{{ url_for('all_programs') }}" class="btn btn-outline-primary btn-lg">Все программы</a>
         </div>
-
-        {% if not rehab_system %}
-        <div class="alert alert-warning mt-4">
-            <strong>Внимание:</strong> Онтология не загружена. Некоторые функции могут быть недоступны.
-        </div>
-        {% endif %}
     </div>
 </div>
 {% endblock %}

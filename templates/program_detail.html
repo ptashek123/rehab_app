@@ -12,27 +12,27 @@
             </ol>
         </nav>
 
-        <div class="card">
+        <div class="card border-primary">
             <div class="card-header bg-primary text-white">
                 <h3 class="mb-0">{{ program.display_name }}</h3>
             </div>
             <div class="card-body">
                 <div class="row mb-4">
                     <div class="col-md-6">
-                        <h5>Основные параметры</h5>
+                        <h5 class="text-secondary">📋 Основные параметры</h5>
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between">
-                                <span>Длительность программы:</span>
+                                <span>⏱️ Длительность программы:</span>
                                 <strong>{{ program.duration }} дней</strong>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
-                                <span>Количество сеансов:</span>
+                                <span>📅 Количество сеансов:</span>
                                 <strong>{{ program.session_count }}</strong>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-6">
-                        <h5>Специалисты</h5>
+                        <h5 class="text-secondary">👨‍⚕️ Специалисты</h5>
                         <div class="list-group">
                             {% for specialist in program.specialists %}
                             <span class="list-group-item">{{ specialist }}</span>
@@ -41,16 +41,16 @@
                     </div>
                 </div>
 
-                <h5>Методы реабилитации</h5>
+                <h5 class="text-secondary mb-3">🏥 Методы реабилитации</h5>
                 <div class="row">
                     {% for method in program.methods %}
                     <div class="col-md-6 mb-3">
-                        <div class="card">
+                        <div class="card h-100">
                             <div class="card-body">
                                 <h6 class="card-title">{{ method.name }}</h6>
                                 <p class="card-text">
                                     <small class="text-muted">
-                                        Эффективность: {{ method.effectiveness }}%
+                                        📊 Эффективность: {{ method.effectiveness }}%
                                     </small>
                                 </p>
                             </div>
@@ -59,14 +59,14 @@
                     {% endfor %}
                 </div>
 
-                <h5 class="mt-4">Подходит для пациентов</h5>
+                <h5 class="mt-4 text-secondary">👤 Подходит для пациентов</h5>
                 <div class="alert alert-info">
                     {{ program.suitable_patients|join(', ') }}
                 </div>
             </div>
             <div class="card-footer text-center">
-                <a href="{{ url_for('patient_form') }}" class="btn btn-primary">Подобрать для пациента</a>
-                <a href="{{ url_for('all_programs') }}" class="btn btn-outline-secondary">Назад к списку</a>
+                <a href="{{ url_for('patient_form') }}" class="btn btn-primary me-2">🔍 Подобрать для пациента</a>
+                <a href="{{ url_for('all_programs') }}" class="btn btn-outline-secondary">← Назад к списку</a>
             </div>
         </div>
     </div>

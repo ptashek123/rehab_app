@@ -5,16 +5,16 @@
 {% block content %}
 <div class="row">
     <div class="col-12">
-        <h2 class="mb-4">Рекомендованные программы реабилитации</h2>
+        <h2 class="mb-4 text-primary">Рекомендованные программы реабилитации</h2>
 
         <!-- Информация о пациенте -->
-        <div class="card mb-4">
+        <div class="card mb-4 border-primary">
             <div class="card-header bg-light">
-                <h5 class="mb-0">Данные пациента</h5>
+                <h5 class="mb-0">📋 Данные пациента</h5>
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <strong>Диагноз:</strong><br>
                         {{ patient_data.diagnosis }}
                     </div>
@@ -27,11 +27,23 @@
                         {{ patient_data.age_group }}
                     </div>
                     <div class="col-md-3">
-                        <strong>Цели:</strong><br>
-                        {{ patient_data.goals|join(', ') if patient_data.goals else 'Не указаны' }}
+                        <strong>Цели реабилитации:</strong><br>
+                        {% if patient_data.goals %}
+                        {% for goal in patient_data.goals %}
+                        {% if goal == 'walking' %}Ходьба
+                        {% elif goal == 'mobility' %}Подвижность
+                        {% elif goal == 'pain_relief' %}Снятие боли
+                        {% elif goal == 'coordination' %}Координация
+                        {% elif goal == 'psychological' %}Психология
+                        {% elif goal == 'daily_activities' %}Бытовые навыки
+                        {% else %}{{ goal }}{% endif %}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        Не указаны
+                        {% endif %}
                     </div>
-                    <div class="col-md-2">
-                        <strong>Подвижность:</strong><br>
+                    <div class="col-md-3">
+                        <strong>Ограничения подвижности:</strong><br>
                         {{ patient_data.mobility_restrictions if patient_data.mobility_restrictions else 'Не указано' }}
                     </div>
                 </div>
@@ -40,28 +52,30 @@
 
         <!-- Результаты -->
         {% if programs %}
+        <h3 class="mb-3">Найдено программ: {{ programs|length }}</h3>
+
         {% for program in programs %}
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">{{ program.display_name }}</h5>
+        <div class="card mb-4 program-card border shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                <h4 class="mb-0 text-primary">{{ program.display_name }}</h4>
                 <span
-                    class="badge bg-{% if program.score >= 80 %}success{% elif program.score >= 60 %}warning{% else %}danger{% endif %} fs-6">
+                    class="badge bg-{% if program.score >= 80 %}success{% elif program.score >= 60 %}warning{% else %}danger{% endif %} fs-6 p-2">
                     Релевантность: {{ program.score }}%
                 </span>
             </div>
             <div class="card-body">
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-md-6">
-                        <h6>Методы реабилитации:</h6>
-                        <ul class="list-group list-group-flush">
+                        <h5 class="text-secondary">🏥 Методы реабилитации:</h5>
+                        <ul class="list-group">
                             {% for method in program.methods %}
                             <li class="list-group-item">{{ method }}</li>
                             {% endfor %}
                         </ul>
                     </div>
                     <div class="col-md-6">
-                        <h6>Специалисты:</h6>
-                        <ul class="list-group list-group-flush">
+                        <h5 class="text-secondary">👨‍⚕️ Специалисты:</h5>
+                        <ul class="list-group">
                             {% for specialist in program.specialists %}
                             <li class="list-group-item">{{ specialist }}</li>
                             {% endfor %}
@@ -69,35 +83,37 @@
                     </div>
                 </div>
 
-                <div class="row mt-3">
+                <div class="row mb-3">
                     <div class="col-md-4">
-                        <strong>Длительность:</strong> {{ program.duration }} дней
+                        <strong>⏱️ Длительность:</strong> {{ program.duration }} дней
                     </div>
                     <div class="col-md-4">
-                        <strong>Количество сеансов:</strong> {{ program.session_count }}
+                        <strong>📅 Количество сеансов:</strong> {{ program.session_count }}
                     </div>
                     <div class="col-md-4">
-                        <strong>Подходит для:</strong> {{ program.matching_patients|join(', ') }}
+                        <strong>👤 Подходит для пациентов:</strong><br>
+                        {{ program.matching_patients|join(', ') }}
                     </div>
                 </div>
 
                 <div class="text-center mt-3">
                     <a href="{{ url_for('program_detail', program_name=program.name) }}"
-                        class="btn btn-outline-primary btn-sm">Подробнее о программе</a>
+                        class="btn btn-outline-primary btn-sm">📊 Подробнее о программе</a>
                 </div>
             </div>
         </div>
         {% endfor %}
         {% else %}
         <div class="alert alert-warning text-center">
-            <h4>Программы не найдены</h4>
+            <h4>😕 Программы не найдены</h4>
             <p>Попробуйте изменить параметры поиска или обратитесь к специалисту для индивидуальной консультации.</p>
         </div>
         {% endif %}
 
         <div class="text-center mt-4">
-            <a href="{{ url_for('patient_form') }}" class="btn btn-primary me-2">Новый поиск</a>
-            <a href="{{ url_for('all_programs') }}" class="btn btn-outline-secondary">Посмотреть все программы</a>
+            <a href="{{ url_for('patient_form') }}" class="btn btn-primary btn-lg me-3">🔄 Новый поиск</a>
+            <a href="{{ url_for('all_programs') }}" class="btn btn-outline-secondary btn-lg">📋 Посмотреть все
+                программы</a>
         </div>
     </div>
 </div>
