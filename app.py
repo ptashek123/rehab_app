@@ -8,14 +8,13 @@ app.secret_key = 'rehab_secret_key_2024'
 def load_ontology():
     try:
         onto_path.append("ontology")
-        onto = get_ontology("rehabilitation.owl").load()
+        onto = get_ontology("rehabilitation.owx").load()
         print("✅ Онтология загружена успешно!")
         return onto
     except Exception as e:
         print(f"❌ Ошибка загрузки онтологии: {e}")
         return None
 
-# Загружаем онтологию
 onto = load_ontology()
 
 class RehabilitationSystem:
