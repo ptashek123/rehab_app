@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const diagnosis = document.querySelector('select[name="diagnosis"]').value;
             const severity = document.querySelector('select[name="severity"]').value;
             const ageGroup = document.querySelector('select[name="age_group"]').value;
+            const movementImpairment = document.querySelector('select[name="movement_impairment"]').value;
+            const target = document.querySelector('select[name="target"]').value;
 
-            if (!diagnosis || !severity || !ageGroup) {
+            if (!diagnosis || !severity || !ageGroup || !movementImpairment || !target) {
                 e.preventDefault();
                 alert('Пожалуйста, заполните все обязательные поля');
                 return false;

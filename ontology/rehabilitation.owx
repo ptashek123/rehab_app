@@ -52,10 +52,22 @@
         <DataProperty IRI="#hasEffectivenessScore"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#hasExperience"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasMovementImpairment"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="#hasSessionCount"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasSeverity"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasSpecialization"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasTarget"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#method_exercise_therapy"/>
@@ -722,9 +734,19 @@
         <Literal>Возрастные изменения</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#hasMovementImpairment"/>
+        <NamedIndividual IRI="#patient_age_related"/>
+        <Literal>Нет ограничений</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#hasSeverity"/>
         <NamedIndividual IRI="#patient_age_related"/>
         <Literal>Легкая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTarget"/>
+        <NamedIndividual IRI="#patient_age_related"/>
+        <Literal>Снятие болевого синдрома</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasAgeGroup"/>
@@ -737,9 +759,19 @@
         <Literal>Артрит</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#hasMovementImpairment"/>
+        <NamedIndividual IRI="#patient_arthritis"/>
+        <Literal>Нет ограничений</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#hasSeverity"/>
         <NamedIndividual IRI="#patient_arthritis"/>
         <Literal>Средняя</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTarget"/>
+        <NamedIndividual IRI="#patient_arthritis"/>
+        <Literal>Восстановление бытовых навыков</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasAgeGroup"/>
@@ -752,9 +784,19 @@
         <Literal>ДЦП</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#hasMovementImpairment"/>
+        <NamedIndividual IRI="#patient_cerebral_palsy"/>
+        <Literal>Средняя</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#hasSeverity"/>
         <NamedIndividual IRI="#patient_cerebral_palsy"/>
         <Literal>Средняя</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTarget"/>
+        <NamedIndividual IRI="#patient_cerebral_palsy"/>
+        <Literal>Улучшение координации</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasAgeGroup"/>
@@ -767,9 +809,29 @@
         <Literal>После операции</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#hasMovementImpairment"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+        <Literal>Легкая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#hasSeverity"/>
         <NamedIndividual IRI="#patient_post_surgery"/>
         <Literal>Легкая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTarget"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+        <Literal>Восстановление бытовых навыков</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTarget"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+        <Literal>Снятие болевого синдрома</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTarget"/>
+        <NamedIndividual IRI="#patient_post_surgery"/>
+        <Literal>Улучшение координации</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasAgeGroup"/>
@@ -782,9 +844,24 @@
         <Literal>Травма позвоночника</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#hasMovementImpairment"/>
+        <NamedIndividual IRI="#patient_spinal_injury"/>
+        <Literal>Тяжелая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#hasSeverity"/>
         <NamedIndividual IRI="#patient_spinal_injury"/>
         <Literal>Тяжелая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTarget"/>
+        <NamedIndividual IRI="#patient_spinal_injury"/>
+        <Literal>Восстановление ходьбы</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTarget"/>
+        <NamedIndividual IRI="#patient_spinal_injury"/>
+        <Literal>Снятие болевого синдрома</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasAgeGroup"/>
@@ -797,9 +874,19 @@
         <Literal>Спортивная травма</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#hasMovementImpairment"/>
+        <NamedIndividual IRI="#patient_sports_injury"/>
+        <Literal>Средняя</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#hasSeverity"/>
         <NamedIndividual IRI="#patient_sports_injury"/>
         <Literal>Средняя</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTarget"/>
+        <NamedIndividual IRI="#patient_sports_injury"/>
+        <Literal>Улучшение подвижности</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasAgeGroup"/>
@@ -812,9 +899,19 @@
         <Literal>Инсульт</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#hasMovementImpairment"/>
+        <NamedIndividual IRI="#patient_stroke_mild"/>
+        <Literal>Средняя</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#hasSeverity"/>
         <NamedIndividual IRI="#patient_stroke_mild"/>
         <Literal>Легкая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTarget"/>
+        <NamedIndividual IRI="#patient_stroke_mild"/>
+        <Literal>Восстановление быовых навыков</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasAgeGroup"/>
@@ -827,9 +924,19 @@
         <Literal>Инсульт</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#hasMovementImpairment"/>
+        <NamedIndividual IRI="#patient_stroke_severe"/>
+        <Literal>Тяжелая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#hasSeverity"/>
         <NamedIndividual IRI="#patient_stroke_severe"/>
         <Literal>Тяжелая</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasTarget"/>
+        <NamedIndividual IRI="#patient_stroke_severe"/>
+        <Literal>Улучшение подвижности</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasDuration"/>
@@ -911,6 +1018,89 @@
         <NamedIndividual IRI="#program_sports"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">12</Literal>
     </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasExperience"/>
+        <NamedIndividual IRI="#specialist_ergotherapist"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">25</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSpecialization"/>
+        <NamedIndividual IRI="#specialist_ergotherapist"/>
+        <Literal>Эрготерапевт</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasExperience"/>
+        <NamedIndividual IRI="#specialist_lfk_doctor"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">17</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSpecialization"/>
+        <NamedIndividual IRI="#specialist_lfk_doctor"/>
+        <Literal>Врач ЛФК</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSpecialization"/>
+        <NamedIndividual IRI="#specialist_massage_therapist"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">30</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSpecialization"/>
+        <NamedIndividual IRI="#specialist_massage_therapist"/>
+        <Literal>Массажист</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasExperience"/>
+        <NamedIndividual IRI="#specialist_neurologist"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">28</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSpecialization"/>
+        <NamedIndividual IRI="#specialist_neurologist"/>
+        <Literal>Невролог</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasExperience"/>
+        <NamedIndividual IRI="#specialist_orthopedist"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">12</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSpecialization"/>
+        <NamedIndividual IRI="#specialist_orthopedist"/>
+        <Literal>Ортопед</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasExperience"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">8</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSpecialization"/>
+        <NamedIndividual IRI="#specialist_physiotherapist"/>
+        <Literal>Физиотерапевт</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasExperience"/>
+        <NamedIndividual IRI="#specialist_psychologist"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSpecialization"/>
+        <NamedIndividual IRI="#specialist_psychologist"/>
+        <Literal>Психолог</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasExperience"/>
+        <NamedIndividual IRI="#specialist_rehabilitologist"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">42</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hasSpecialization"/>
+        <NamedIndividual IRI="#specialist_rehabilitologist"/>
+        <Literal>Реабилитолог</Literal>
+    </DataPropertyAssertion>
+    <SymmetricObjectProperty>
+        <ObjectProperty IRI="#treatedBy"/>
+    </SymmetricObjectProperty>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#includesMethod"/>
         <Class IRI="#RehabilitationProgram"/>
@@ -968,11 +1158,27 @@
         <Class IRI="#RehabilitationMethod"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
+        <DataProperty IRI="#hasExperience"/>
+        <Class IRI="#Specialist"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasMovementImpairment"/>
+        <Class IRI="#Patient"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
         <DataProperty IRI="#hasSessionCount"/>
         <Class IRI="#RehabilitationProgram"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#hasSeverity"/>
+        <Class IRI="#Patient"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasSpecialization"/>
+        <Class IRI="#Specialist"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasTarget"/>
         <Class IRI="#Patient"/>
     </DataPropertyDomain>
     <DataPropertyRange>
@@ -992,11 +1198,27 @@
         <Datatype abbreviatedIRI="xsd:integer"/>
     </DataPropertyRange>
     <DataPropertyRange>
+        <DataProperty IRI="#hasExperience"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasMovementImpairment"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
         <DataProperty IRI="#hasSessionCount"/>
         <Datatype abbreviatedIRI="xsd:integer"/>
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#hasSeverity"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasSpecialization"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasTarget"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <AnnotationAssertion>
