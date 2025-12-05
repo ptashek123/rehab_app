@@ -849,7 +849,7 @@
     <DataPropertyAssertion>
         <DataProperty IRI="#hasSessionCount"/>
         <NamedIndividual IRI="#program_neurological_mild"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">15</Literal>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">15</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#hasDuration"/>
@@ -1047,11 +1047,6 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasSeverity</IRI>
-        <Literal>Сложность</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasSeverity</IRI>
         <Literal>Степень сложности</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
@@ -1137,7 +1132,7 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#patient_stroke_severe</IRI>
-        <Literal>Инсуль в тяжелой форме</Literal>
+        <Literal>Инсульт в тяжелой форме</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
