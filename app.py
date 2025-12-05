@@ -41,23 +41,21 @@ class RehabilitationSystem:
         }
         
         self.target_translation = {
-            'walking': 'Ходьба',
-            'balance': 'Баланс',
-            'strength': 'Сила',
-            'flexibility': 'Гибкость',
-            'endurance': 'Выносливость',
-            'coordination': 'Координация',
+            'walking': 'Восстановление ходьбы',
+            'flexibility': 'Улучшение гибкости',
+            'endurance': 'Улучшение выносливости',
+            'coordination': 'Улучшение координации',
             'pain_reduction': 'Снижение боли',
-            'independence': 'Самостоятельность'
+            'independence': 'Восстановление бытовых навыков'
         }
         
         self.goal_translation = {
-            'walking': 'Ходьба',
-            'mobility': 'Подвижность', 
+            'walking': 'Восстановление ходьбы',
+            'mobility': 'Повышение подвижности', 
             'pain_relief': 'Снятие боли',
-            'coordination': 'Координация',
+            'coordination': 'Улучшение координации',
             'psychological': 'Психологическая поддержка',
-            'daily_activities': 'Бытовые навыки'
+            'daily_activities': 'Восстановление бытовых навыков'
         }
         
         self.method_translation = {
@@ -328,7 +326,6 @@ class RehabilitationSystem:
         """Проверка соответствия цели реабилитации"""
         score = 0
         
-        # Маппинг целей к методам
         target_method_map = {
             'walking': ['роботизированная терапия', 'лфк', 'ходьба'],
             'balance': ['упражнения на баланс', 'лфк', 'физиотерапия'],
@@ -485,8 +482,8 @@ class RehabilitationSystem:
                 'methods': methods_with_effectiveness,
                 'specialists': self._get_related(program, 'supervisedBy', 'курируется'),
                 'suitable_patients': self._get_related(program, 'suitableFor', 'подходитДля'),
-                'target': self._get_related(program, 'hasTargetGroup', 'имеетЦелевуюГруппу'),
-                'movement_impairment': self._get_property(program, 'suitableMovementLevel', 'подходитДляУровняДвижения')
+                'target': self._get_related(program, 'hasTarget', 'имеетЦель'),
+                'movement_impairment': self._get_property(program, 'suitableMovementImpairment', 'подходитДляУровняДвижения')
             }
             
         except Exception as e:
@@ -511,23 +508,33 @@ def find_program():
             'severity': request.form['severity'],
             'age_group': request.form['age_group'],
             'goals': request.form.getlist('goals'),
-            'mobility_restrictions': request.form.get('mobility_restrictions', ''),
-            'pain_level': request.form.get('pain_level', ''),
-            'movement_impairment': request.form.get('movement_impairment', ''),
-            'target': request.form.get('target', '')
+            'movement_impairment': request.form['movement_impairment'],
+            'target': request.form['target']
         }
         
+        optional_fields = ['mobility_restrictions', 'pain_level']
+        for field in optional_fields:
+            if field in request.form and request.form[field]:
+                patient_data[field] = request.form[field]
+        
         print(f"Данные пациента: {patient_data}")
+        print(f"Обязательные поля - диагноз: {patient_data['diagnosis']}, цель: {patient_data['target']}, ограничение движения: {patient_data['movement_impairment']}")
         
         optimal_programs = rehab_system.find_optimal_programs(patient_data)
         
         translated_goals = rehab_system.translate_goals(patient_data['goals'])
+        
+        patient_data['target_display'] = rehab_system.target_translation.get(patient_data['target'], patient_data['target'])
+        patient_data['movement_display'] = rehab_system.movement_impairment_mapping.get(patient_data['movement_impairment'], patient_data['movement_impairment'])
         
         return render_template('results.html', 
                              programs=optimal_programs,
                              patient_data=patient_data,
                              translated_goals=translated_goals)
     
+    except KeyError as e:
+        flash(f'Не заполнено обязательное поле: {str(e)}', 'error')
+        return render_template('patient_form.html')
     except Exception as e:
         flash(f'Ошибка при обработке запроса: {str(e)}', 'error')
         import traceback

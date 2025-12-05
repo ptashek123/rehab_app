@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!diagnosis || !severity || !ageGroup || !movementImpairment || !target) {
                 e.preventDefault();
-                alert('Пожалуйста, заполните все обязательные поля');
+                alert('Пожалуйста, заполните все обязательные поля: диагноз, степень тяжести, возрастная группа, цель реабилитации и уровень ограничения движения');
                 return false;
             }
         });
@@ -25,10 +25,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    const severitySelect = document.querySelector('select[name="severity"]');
-    if (severitySelect) {
-        severitySelect.addEventListener('change', function () {
-            console.log('Selected severity:', this.value);
+    const targetSelect = document.querySelector('select[name="target"]');
+    const movementSelect = document.querySelector('select[name="movement_impairment"]');
+
+    if (targetSelect) {
+        targetSelect.addEventListener('change', function () {
+            console.log('Selected target:', this.value);
+        });
+    }
+
+    if (movementSelect) {
+        movementSelect.addEventListener('change', function () {
+            console.log('Selected movement impairment:', this.value);
         });
     }
 });

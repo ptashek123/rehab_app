@@ -7,7 +7,6 @@
     <div class="col-12">
         <h2 class="mb-4 text-primary">Рекомендованные программы реабилитации</h2>
 
-        <!-- Информация о пациенте -->
         <div class="card mb-4 border-primary">
             <div class="card-header bg-light">
                 <h5 class="mb-0">📋 Данные пациента</h5>
@@ -16,29 +15,61 @@
                 <div class="row">
                     <div class="col-md-2">
                         <strong>Диагноз:</strong><br>
-                        {{ patient_data.diagnosis }}
+                        {{ patient_data.diagnosis|capitalize }}
                     </div>
                     <div class="col-md-2">
                         <strong>Степень тяжести:</strong><br>
-                        {{ patient_data.severity }}
+                        {{ patient_data.severity|capitalize }}
                     </div>
                     <div class="col-md-2">
                         <strong>Возрастная группа:</strong><br>
-                        {{ patient_data.age_group }}
+                        {{ patient_data.age_group|capitalize }}
                     </div>
-                    <div class="col-md-3">
-                        <strong>Цели реабилитации:</strong><br>
-                        {{ translated_goals|join(', ') if translated_goals else 'Не указаны' }}
+                    <div class="col-md-2">
+                        <strong>Основная цель:</strong><br>
+                        {% if patient_data.target_display %}
+                        {{ patient_data.target_display }}
+                        {% else %}
+                        {{ patient_data.target|capitalize }}
+                        {% endif %}
                     </div>
-                    <div class="col-md-3">
-                        <strong>Ограничения подвижности:</strong><br>
-                        {{ patient_data.mobility_restrictions if patient_data.mobility_restrictions else 'Не указано' }}
+                    <div class="col-md-2">
+                        <strong>Ограничение движения:</strong><br>
+                        {% if patient_data.movement_display %}
+                        {{ patient_data.movement_display }}
+                        {% else %}
+                        {{ patient_data.movement_impairment|capitalize }}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-2">
+                        <strong>Дополнительные цели:</strong><br>
+                        {% if translated_goals %}
+                        {{ translated_goals|join(', ') }}
+                        {% else %}
+                        Не указаны
+                        {% endif %}
                     </div>
                 </div>
+
+                {% if patient_data.pain_level or patient_data.mobility_restrictions %}
+                <div class="row mt-3">
+                    {% if patient_data.pain_level %}
+                    <div class="col-md-4">
+                        <strong>Уровень боли:</strong><br>
+                        {{ patient_data.pain_level|capitalize }}
+                    </div>
+                    {% endif %}
+                    {% if patient_data.mobility_restrictions %}
+                    <div class="col-md-4">
+                        <strong>Ограничения подвижности:</strong><br>
+                        {{ patient_data.mobility_restrictions|capitalize }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
             </div>
         </div>
 
-        <!-- Результаты -->
         {% if programs %}
         <h3 class="mb-3">Найдено программ: {{ programs|length }}</h3>
 
@@ -77,19 +108,25 @@
 
                 <div class="row mb-3">
                     {% if program.duration %}
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <strong>⏱️ Длительность:</strong> {{ program.duration }} дней
                     </div>
                     {% endif %}
                     {% if program.session_count %}
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <strong>📅 Количество сеансов:</strong> {{ program.session_count }}
                     </div>
                     {% endif %}
                     {% if program.matching_patients %}
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <strong>👤 Подходит для пациентов:</strong><br>
                         {{ program.matching_patients|join(', ') }}
+                    </div>
+                    {% endif %}
+                    {% if program.target_match %}
+                    <div class="col-md-3">
+                        <strong>🎯 Совпадение цели:</strong><br>
+                        {{ program.target_match }}
                     </div>
                     {% endif %}
                 </div>

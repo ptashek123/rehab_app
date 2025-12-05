@@ -1,3 +1,4 @@
+<!-- patient_form.html - обновленная форма -->
 {% extends "base.html" %}
 
 {% block title %}Анкета пациента{% endblock %}
@@ -51,13 +52,38 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Ограничения подвижности:</label>
-                            <select name="mobility_restrictions" class="form-select">
+                            <label class="form-label">Основная цель реабилитации:</label>
+                            <select name="target" class="form-select" required>
+                                <option value="">Выберите цель</option>
+                                <option value="walking">Восстановление ходьбы</option>
+                                <option value="flexibility">Повышение гибкости</option>
+                                <option value="endurance">Улучшение выносливости</option>
+                                <option value="coordination">Улучшение координации</option>
+                                <option value="pain_reduction">Снижение боли</option>
+                                <option value="independence">Восстановление бытовых навыков</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Степень ограничения движений:</label>
+                            <select name="movement_impairment" class="form-select" required>
+                                <option value="">Выберите уровень</option>
+                                <option value="none">Нет ограничений</option>
+                                <option value="mild">Легкая</option>
+                                <option value="medium">Средняя</option>
+                                <option value="severe">Тяжелая</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Уровень боли:</label>
+                            <select name="pain_level" class="form-select">
                                 <option value="">Не указано</option>
-                                <option value="нет_ограничений">Нет ограничений</option>
-                                <option value="легкая">Легкая</option>
-                                <option value="средняя">Средняя</option>
-                                <option value="тяжелая">Тяжелая</option>
+                                <option value="острый">Острый</option>
+                                <option value="хронический">Хронический</option>
+                                <option value="отсутствует">Отсутствует</option>
                             </select>
                         </div>
                     </div>
@@ -66,7 +92,7 @@
 
             <div class="card mb-4">
                 <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">Цели реабилитации</h5>
+                    <h5 class="mb-0">Дополнительные цели реабилитации</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -103,23 +129,6 @@
                                 <label class="form-check-label" for="goal6">Восстановление бытовых навыков</label>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Дополнительная информация</h5>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label class="form-label">Уровень боли:</label>
-                        <select name="pain_level" class="form-select">
-                            <option value="">Не указано</option>
-                            <option value="острый">Острый</option>
-                            <option value="хронический">Хронический</option>
-                            <option value="отсутствует">Отсутствует</option>
-                        </select>
                     </div>
                 </div>
             </div>
