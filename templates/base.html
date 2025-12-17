@@ -31,6 +31,19 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
+
+        .bug-report-btn {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .bug-report-btn:hover {
+            background-color: #bb2d3b;
+            border-color: #b02a37;
+            color: white;
+        }
     </style>
 </head>
 
@@ -51,6 +64,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('all_programs') }}">Все программы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link bug-report-btn btn"
+                            href="https://bug-reports.website.yandexcloud.net/index.html" target="_blank">
+                            Сообщить о проблеме
+                        </a>
                     </li>
                 </ul>
             </div>
